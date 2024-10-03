@@ -1,0 +1,31 @@
+body{
+  background-color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+}
+nav{
+  border-bottom: 1px solid rgb(32, 31, 31);
+}
+.container-form{
+  background-color: #D9D9D9;
+  padding: 30px;
+  border-radius: 10px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(133,131,133,1);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(133,131,133,1);
+  box-shadow: 10px 10px 5px 0px rgba(133,131,133,1);
+}
+
+button{
+  color: white;
+}
+
+#orange{
+  background-color: #F4A261;
+}
+
+#blue{
+  background-color: #264653;
+}
+#sofia{
+  font-family: 'Sofia', sans-serif;
+  color: #264653;
+}
