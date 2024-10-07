@@ -1,6 +1,9 @@
 .encabezado{
   text-align: left;
 }
+body{
+  font-family: 'Poppins', sans-serif;
+}
 
 .registro-content {
   margin-top: 50px;
