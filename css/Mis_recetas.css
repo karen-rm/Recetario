@@ -6,23 +6,28 @@
 }
 
 .tarjeta {
+    max-width: 300px;
+    margin: 20px;
     border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
+    border-radius: 5px;
+    overflow: hidden; 
     text-align: center;
+    background-color: rgb(252, 221, 184);
     position: relative;
 }
 
 .tarjeta img {
-    width: 100%;
-    height: 150px;
+    width: 100%; 
+    height: 180px; 
     object-fit: cover;
-    border-radius: 8px;
 }
 
-.tarjeta h3 {
-    margin: 10px 0;
-    font-size: 18px;
+.tarjeta h5 {
+    margin: 10px;
+    text-align: start;
+    font-weight: bold;
+    font-style: italic;
+    color: rgb(107, 107, 107);
 }
 
 .opciones {
@@ -34,6 +39,10 @@
 .tres-puntos {
     cursor: pointer;
     font-size: 18px;
+    background-color: white;
+    border-radius: 5px;
+    border: 0;
+    font-style: oblique;
 }
 
 .menu-opciones {
@@ -53,4 +62,8 @@
     background: none;
     border: none;
     cursor: pointer;
+}
+.menu-opciones button:hover {
+    width: 100%;
+    background-color: rgb(252, 221, 184);
 }

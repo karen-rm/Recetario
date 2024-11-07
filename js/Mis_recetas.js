@@ -20,9 +20,12 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
             const tarjeta = `
                 <div class="tarjeta">
                     <img src="${receta.imagen_url}" alt="${receta.titulo}">
-                    <h3>${receta.titulo}</h3>
+                    <h5>${receta.titulo}</h5>
+                    <div class=tiempo>
+                        <p>Hazlo en tan solo: ${receta.tiempo_preparacion} | min</p>
+                    </div>
                     <div class="opciones">
-                        <span class="tres-puntos">...</span>
+                        <button class="tres-puntos"> ... </button>
                         <div class="menu-opciones">
                             <button class="editar">Editar</button>
                             <button class="eliminar">Eliminar</button>

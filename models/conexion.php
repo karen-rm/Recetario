@@ -2,7 +2,7 @@
 // Configuración de la base de datos
 $host = "localhost"; 
 $usuario = "root";
-$contraseña = "";
+$contraseña = "D4NC4RCk01.";
 $base_de_datos = "recetario";
 try {
     $dsn = "mysql:host=$host;dbname=$base_de_datos;charset=utf8";
