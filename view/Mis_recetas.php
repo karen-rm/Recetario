@@ -21,7 +21,7 @@
 	<script src="../js/mis_recetas.js"></script>
 </head>
 <body>
- <?php include '../router/navbar.php'; ?>
+  <!--  include '../router/navbar.php'; ?> -->
 
     <div id="contenedor-recetas" class="recetas-container">
         <!-- Aquí se agregarán las tarjetas dinámicamente -->
