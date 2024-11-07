@@ -23,6 +23,7 @@
 
     <div class="container-fluid">
         <div class="row" style="height: 85vh;">
+            <div class="col-1 d-block d-md-none"></div>
             <section class="col-7 d-none d-md-block my-auto">
                 <div class="row align-items-center">
                     <div class="col-7"><h1 class="display-1 my-auto font-italic text-center" id="sofia">+ Recetas</h1></div>
@@ -30,7 +31,7 @@
                 </div>
                 <h3 class="font-weight-normal text-center">Comparte, cocina y disfruta en <br> cada receta.</h3>
             </section>
-            <section class="col-12 col-md-5 my-auto">
+            <section class="col-10 col-md-5 my-auto">
                 <div class="container-form">
                     <form method="POST" action="../controllers/loginController.php">
                         <h1 class="text-center">Login</h1>
@@ -45,10 +46,11 @@
                         <button type="submit" id="orange" name="action" class="btn btn-lg btn-block">Iniciar Sesión</button>
                         <a href="" class="nav-link text-dark text-left">¿Olvidaste tu contraseña?</a>
                         <hr>
-                        <button type="button" id="blue" class="btn btn-lg btn-block">Crear cuenta</button>
+                        <a type="button" id="blue" class="btn btn-lg btn-block text-white" href="./registro.php">Crear cuenta</a>
                     </form>
                 </div>
             </section>
+            <div class="col-1 d-block d-md-none"></div>
         </div>
     </div>
 </body>

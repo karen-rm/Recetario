@@ -16,15 +16,18 @@ body{
   
   button{
     color: white;
+    background-color: #264653;
   }
   
   #orange{
     background-color: #F4A261;
+    
   }
   
   #blue{
     background-color: #264653;
   }
+  
   #sofia{
     font-family: 'Sofia', sans-serif;
     color: #264653;

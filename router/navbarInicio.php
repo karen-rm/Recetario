@@ -43,7 +43,7 @@ $nav = <<<HTML
                     <button class="btn rounded-circle fas fa-user fa-lg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="../view/recetario.php">Mis recetas</a></li>
+                        <li><a class="dropdown-item" href="../view/Mis_recetas.php">Mis recetas</a></li>
                         <li><a class="dropdown-item" href="#">Favoritas</a></li>
                         <li><a class="dropdown-item" href="#">Configuración</a></li>
                     </ul>
