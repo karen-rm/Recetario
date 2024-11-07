@@ -8,29 +8,29 @@ class loginModel
         $this->db = $dbConnection;
     }
 
-    public function autenticarUsuario($usuario, $contrasenia)
-{
-    try {
-        // Preparar la consulta SQL
-        $sql = "SELECT * FROM usuarios WHERE correo = :correo LIMIT 1";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':correo', $usuario, PDO::PARAM_STR);
-        $stmt->execute();
+    public function autenticarUsuario($correo, $contrasenia)
+    {
+        try {
+            // Preparar la consulta SQL
+            $sql = "SELECT * FROM usuarios WHERE correo = :correo LIMIT 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->execute();
 
-        $usuarioBD = $stmt->fetch(PDO::FETCH_ASSOC);
+            $usuarioBD = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Verificar si el usuario existe
-        if ($usuarioBD && password_verify($contrasenia, $usuarioBD['contrasenia'])) {
-            // El usuario está autenticado
-            return true;
-        } else {
-            // Credenciales incorrectas
-            return false;
+            // Verificar si el usuario existe y si la contraseña es correcta
+            if ($usuarioBD && password_verify($contrasenia, $usuarioBD['contrasenia'])) {
+                // La contraseña es correcta
+                return true;
+            } else {
+                // Las credenciales son incorrectas
+                return false;
+            }
+        } catch (PDOException $e) {
+            throw new Exception("Error al autenticar el usuario: " . $e->getMessage());
         }
-    } catch (PDOException $e) {
-        throw new Exception("Error al autenticar el usuario: " . $e->getMessage());
     }
 }
 
-}
-
+?>

@@ -11,6 +11,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 500px; /* Limita el ancho del formulario */
     width: 100%; /* Asegura que el formulario se ajuste en pantallas pequeñas */
+    max-height: 80vh; /* Ajusta la altura máxima según lo necesario */
+    overflow-y: auto;
 }
 
 .cerrar-btn {

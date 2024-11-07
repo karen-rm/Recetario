@@ -15,6 +15,7 @@
     <!--Tipografia Sofia-->
     <link href="https://fonts.googleapis.com/css2?family=Sofia:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/loginStyles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>

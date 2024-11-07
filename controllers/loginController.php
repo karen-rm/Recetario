@@ -12,7 +12,7 @@ if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
         // Autenticar el usuario
         $autenticado = $newloginModel->autenticarUsuario($email_user, $contraseña);
 
-        if ($autenticado) {
+        if ($autenticado == true) {
             // Redireccionar al dashboard o a la página principal
             header("Location: ../index.html");
             exit();
@@ -20,7 +20,7 @@ if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
             echo '<script type="text/javascript">
             alert("Usuario no encontrado.");
             window.location.href = "../view/login.php"; // Cambia esta ruta a tu página de inicio de sesión
-          </script>';      
+          </script>';
             exit();
         }
     } catch (Exception $e) {
@@ -28,4 +28,3 @@ if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
     }
 }
 ?>
-
