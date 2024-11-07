@@ -1,0 +1,23 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.comidas-box {
+    padding: 30px;
+    background-color: #f4a3619a;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comidas-box:hover {
+    background-color: #f4a361;
+    transform: translateY(-5px);
+}
+
+.comidas-box i {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
