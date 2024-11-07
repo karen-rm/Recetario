@@ -14,16 +14,16 @@ $nav = '
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
               <ul class="navbar-nav ">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Inicio</a>
+                  <a class="nav-link" href="view/home.html">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Recetas</a>
+                  <a class="nav-link" href="view/Mis_recetas.php">Recetas</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="../view/login.php">Iniciar Sesión</a>
+                    <a class="nav-link" href="view/login.php">Iniciar Sesión</a>
                   </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="../view/registro.php">Registrarse</a>
+                  <a class="nav-link" href="view/registro.php">Registrarse</a>
                 </li>
               </ul>
               <form class="form-inline my-2 my-lg-0 ml-auto">

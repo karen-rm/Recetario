@@ -14,7 +14,7 @@ if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
 
         if ($autenticado) {
             // Redireccionar al dashboard o a la página principal
-            header("Location: ../index.html");
+            header("Location: ../index.php");
             exit();
         } else {
             echo '<script type="text/javascript">

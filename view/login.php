@@ -20,8 +20,8 @@
 </head>
 
 <body>
-  <!-- incluir navbar -->
-    <?php include '../router/navbar.php'; ?>
+  <!-- incluir navbar 
+     include '../router/navbar.php'; ?-->
 
     <div class="container-fluid">
         <div class="row" style="height: 90vh;">

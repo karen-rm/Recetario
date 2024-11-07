@@ -15,5 +15,13 @@ class Receta {
         $stmt->execute(); // se ejecuta la consulta
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // devuelve todos los resultados de la consulta como un array asociativo, donde las claves son los nombres de las columnas
     }
+	 // Publicar receta (cambiar el estado a "publicado")
+    public function publicarReceta($idReceta) {
+        $query = "UPDATE recetas SET estado = 'publicado' WHERE id_receta = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $idReceta);
+        $stmt->execute();
+        $stmt->close();
+    }
 }
 ?>

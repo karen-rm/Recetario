@@ -12,6 +12,7 @@ require '../models/Receta.php';
 //este es una variable que le asigno un id de un usuario previamnete que yo registre, esto con el finn de probar el metodo (obtenerRecetasPorUsuario)
 //cuando este funcionando correctamente iniciarsecion por favor borrar estos comentarios y la variable con asignacion por favor :)
 // si quieren probar los valores son entre 1 y 2, cada usuario debera de mostrar diferentes recetas.
+
 $usuario_id = 1;
 //Se crea una nueva instancia de la clase Receta, pasando la conexión a la base de datos $conexion como argumento, esto permite que el modelo de recetas acceda a la base de datos para realizar consultas.
 $recetaModel = new Receta($conexion);
@@ -21,4 +22,8 @@ $recetas = $recetaModel->obtenerRecetasPorUsuario($usuario_id);
 
 // Devolver los datos en formato JSON
 echo json_encode($recetas);
+
+
+
+
 ?>

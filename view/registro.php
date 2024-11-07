@@ -14,8 +14,8 @@
 </head>
 
 <body>
-
-    <?php include '../router/navbar.php'; ?>
+<!--
+    <?php include '../router/navbar.php'; ?> -->
     
     <!--Modal registro-->
     <div class="d-flex justify-content-center align-items-center">
