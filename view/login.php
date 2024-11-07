@@ -28,7 +28,7 @@
             <section class="col-7 d-none d-md-block my-auto">
                 <div class="row align-items-center">
                     <div class="col-7"><h1 class="display-1 my-auto font-italic text-center" id="sofia">+ Recetas</h1></div>
-                    <div class="col-5"><img src="../resources/images/lasaña.png" alt="imagen de lasaña" width="50%px">  </div>
+                    <div class="col-5"><img src="resources/images/lasaña.png" alt="imagen de lasaña" width="50%px">  </div>
                 </div>
                 <h3 class="font-weight-normal text-center">Comparte, cocina y disfruta en <br> cada receta.</h3>
             </section>
