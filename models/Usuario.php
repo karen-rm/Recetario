@@ -7,19 +7,17 @@ class Usuario {
     }
 
     public function verificarCredenciales($correo, $contraseña) {
-        // Consulta para verificar el usuario en la base de datos
-        $query = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";
+        // Consulta SQL para verificar usuario y contraseña
+        $query = "SELECT * FROM usuarios WHERE correo = :correo AND contraseña = :contraseña";
         $stmt = $this->conexion->prepare($query);
-        
-        // Encriptar la contraseña antes de compararla con la base de datos
-        $hashedPassword = md5($contraseña);  // Usa el mismo método que al guardar la contraseña
-        
-        // Ejecutar la consulta
-        $stmt->bind_param("ss", $correo, $hashedPassword);
+        $stmt->bindParam(':correo', $correo);
+        $stmt->bindParam(':contraseña', $contraseña);
         $stmt->execute();
-        $resultado = $stmt->get_result();
-
-        return $resultado->num_rows > 0; // Devuelve true si hay coincidencia
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+        return false;
     }
 }
+
 ?>

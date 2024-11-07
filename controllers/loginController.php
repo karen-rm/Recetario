@@ -1,31 +1,36 @@
 <?php
-require_once '../models/conexion.php';
-require_once '../models/loginModel.php';
+session_start();
+require '../models/conexion.php';
+require '../models/Usuario.php';
 
-$newloginModel = new loginModel($conexion);
+class LoginController {
+    private $usuarioModel;
 
-if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
-    $email_user = $_POST['correo'];
-    $contraseña = $_POST['contraseña'];
+    public function __construct($conexion) {
+        $this->usuarioModel = new Usuario($conexion);
+    }
 
-    try {
-        // Autenticar el usuario
-        $autenticado = $newloginModel->autenticarUsuario($email_user, $contraseña);
-
-        if ($autenticado) {
-            // Redireccionar al dashboard o a la página principal
-            header("Location: ../index.php");
+    public function iniciarSesion($correo, $contraseña) {
+        if ($this->usuarioModel->verificarCredenciales($correo, $contraseña)) {
+            // Si las credenciales son válidas, iniciar sesión
+            $_SESSION['usuario'] = $correo;
+            header("Location: ../view/home.html");  // Asegúrate de que esta ruta es correcta
             exit();
         } else {
-            echo '<script type="text/javascript">
-            alert("Usuario no encontrado.");
-            window.location.href = "../view/login.php"; // Cambia esta ruta a tu página de inicio de sesión
-          </script>';      
+            // Si las credenciales son inválidas, redirigir al login con error
+            header("Location: ../view/login.php?error=1");
             exit();
         }
-    } catch (Exception $e) {
-        echo "Error al autenticar usuario: " . $e->getMessage();
     }
 }
-?>
 
+// Verificar si se envió la solicitud de inicio de sesión
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $correo = $_POST['correo'];
+    $contraseña = $_POST['contraseña'];
+
+    // Crear una instancia del controlador y llamar a iniciar sesión
+    $loginController = new LoginController($conexion);
+    $loginController->iniciarSesion($correo, $contraseña);
+}
+?>
