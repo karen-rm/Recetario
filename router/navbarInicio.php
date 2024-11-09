@@ -43,7 +43,7 @@ $nav = <<<HTML
                     <button class="btn rounded-circle fas fa-user fa-lg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="../view/Mis_recetas.php">Mis recetas</a></li>
+                        <li><a class="dropdown-item" href="index.php?page=Mis_recetas">Mis recetas</a></li>
                         <li><a class="dropdown-item" href="#">Favoritas</a></li>
                         <li><a class="dropdown-item" href="#">Configuración</a></li>
                     </ul>
@@ -54,10 +54,10 @@ $nav = <<<HTML
                 </form>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Inicio</a>
+                        <a class="nav-link" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../view/login.php">Iniciar Sesión</a>
+                        <a class="nav-link" href="index.php?page=registro">Iniciar Sesión</a>
                     </li>
                 </ul>
             </div>
