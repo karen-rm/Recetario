@@ -1,7 +1,7 @@
 $(document).ready(function() { // esta línea asegura que el código dentro de la función se ejecute una vez que el documento HTML haya terminado de cargarse completamente
     // Llamada AJAX para obtener las recetas
     $.ajax({
-        url: '../controllers/ctr_receta.php',  // El archivo PHP del controlador
+         url: '/Recetario/controllers/ctr_receta.php',// El archivo PHP del controlador
         method: 'GET', //  aqui defino el método HTTP que se utilizará para la solicitud
         dataType: 'json', // aqui indico el tipo de datos que se espera recibir del servidor
         success: function(data) {
@@ -19,7 +19,7 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
         recetas.forEach(receta => {
             const tarjeta = `
                 <div class="tarjeta">
-                    <img src="${receta.imagen_url}" alt="${receta.titulo}">
+                    <img src="img_u/${receta.imagen_url}" alt="${receta.titulo}">
                     <h3>${receta.titulo}</h3>
                     <div class="opciones">
                         <span class="tres-puntos">...</span>

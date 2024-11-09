@@ -10,8 +10,12 @@ switch ($page) {
     case 'registro':
         include 'view/login.php';
         break;
+	case 'Iniciosesion':
+        include 'view/home_sesion.php';
+        break;
 	case 'Mis_recetas':
-	include 'view/Mis_recetas';
+		include 'view/Mis_recetas.php';
+		break;
     default:
         include 'view/home_sinsesion.html'; 
         break;

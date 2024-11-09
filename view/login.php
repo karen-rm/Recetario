@@ -34,7 +34,7 @@
             </section>
             <section class="col-10 col-md-5 my-auto">
                 <div class="container-form">
-                    <form method="POST" action="controllers/loginController.php">
+                    <form method="POST" id="loginForm">
                         <h1 class="text-center">Login</h1>
                         <div class="form-group">
                             <label class="font-weight-bold" for="email">Email</label>
@@ -54,6 +54,7 @@
             <div class="col-1 d-block d-md-none"></div>
         </div>
     </div>
+	 <script type="text/javascript" src="js/login.js"></script>
 </body>
 
 </html>

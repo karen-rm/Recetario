@@ -1,7 +1,10 @@
 <?php
 class RegistroModel {
     private $conexion;
-
+	private $id_usuario;
+	private $usuario;
+	private $correo;
+	private $contrasegna;
     // Constructor, recibe la conexión de la base de datos
     public function __construct($conexion) {
         $this->conexion = $conexion;
