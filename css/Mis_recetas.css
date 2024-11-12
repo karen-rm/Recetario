@@ -54,3 +54,54 @@
     border: none;
     cursor: pointer;
 }
+
+#btn_agregar_receta {
+    position: fixed; 
+    bottom: 20px;    
+    right: 20px;     
+    z-index: 1000;   
+}
+
+.registro-content {
+  position: relative;
+  padding: 20px;
+  width: 700px;
+  background-color: #ffffff; 
+  margin-top: 10px;
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.encabezado {
+  text-align: center; 
+  margin-bottom: 20px; 
+}
+
+.cerrar-btn{
+  font-size: 40px;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.cerrar-btn:hover {
+  color: #b02a37; 
+}
+
+.form-control {
+  border-radius: 4px; 
+}
+
+.btn-primary {
+  width: 100%; 
+  border-radius: 4px; 
+}
+
+.hidden {
+  display: none;
+} 
+
+.input_img{
+  border-radius: 4px;
+}

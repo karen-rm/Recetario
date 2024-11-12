@@ -39,4 +39,59 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
             $(this).next('.menu-opciones').toggle();
         });
     }
+
+     // Alternar visibilidad del formulario de agregar receta
+            $('#btn_agregar_receta').on('click', function() {
+                $('#contenedor_form_agregar').toggleClass('hidden');
+                
+            });
+      // Ocultar el formulario al hacer clic en el "tache" (cerrar)
+$('.cerrar-btn').on('click', function() {
+    $('#contenedor_form_agregar').addClass('hidden');
+    
 });
+    
+    // Función para añadir un ingrediente
+  document.getElementById("agregarIngrediente").addEventListener("click", function() {
+    const container = document.getElementById("ingredientes-container");
+    
+    // Crear un nuevo campo de ingrediente
+    const newIngrediente = document.createElement("div");
+    newIngrediente.classList.add("row", "ingrediente");
+    
+    newIngrediente.innerHTML = `
+      <div class="col">
+      <p></p>
+        <input type="text" class="form-control" placeholder="Ingrediente" required>
+      </div>
+      <div class="col">
+      <p></p>
+        <input type="text" class="form-control" placeholder="Cantidad" required>
+      </div>
+      <div class="col-auto">
+      <p></p>
+        <button type="button" class="btn btn-danger eliminar-ingrediente">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+    `;
+
+    // Agregar el nuevo ingrediente al contenedor
+    container.appendChild(newIngrediente);
+
+    // Agregar evento de eliminación al botón
+    newIngrediente.querySelector(".eliminar-ingrediente").addEventListener("click", function() {
+      newIngrediente.remove();
+    });
+  });
+
+  // Evento de eliminación para el ingrediente inicial
+  document.querySelectorAll(".eliminar-ingrediente").forEach(button => {
+    button.addEventListener("click", function() {
+      button.closest(".ingrediente").remove();
+    });
+  });
+
+  
+});
+
