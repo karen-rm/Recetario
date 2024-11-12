@@ -16,11 +16,13 @@ $nav = <<<HTML
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto">
+			  
                 <li class="nav-item">
-                  <a class="nav-link" href="../index.php">Inicio</a>
+				
+                  <a class="nav-link" href="index.php?page=Inicio">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../view/login.php">Iniciar Sesión</a>
+                    <a class="nav-link" href="index.php?page=registro">Iniciar Sesión</a>
                 </li>
               </ul>
             </div>

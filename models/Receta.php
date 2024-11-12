@@ -1,5 +1,6 @@
 <?php
-require '../models/conexion.php'; // aqui hago la conexion con la bd
+// En Receta.php, ajusta la ruta de la siguiente manera
+require_once __DIR__ . '/conexion.php';
 
 class Receta {
     private $conexion; // este atributo se usara para almacenar la conexion de bd 

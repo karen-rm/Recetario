@@ -1,16 +1,21 @@
 <?php
-// Configuración de la base de datos
-$host = "localhost"; 
-$usuario = "root";
-$contraseña = "";
-$base_de_datos = "recetario";
-try {
-    $dsn = "mysql:host=$host;dbname=$base_de_datos;charset=utf8";
-    $conexion = new PDO($dsn, $usuario, $contraseña);
-    // Habilitar el manejo de errores con excepciones
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error al conectar a la base de datos: " . $e->getMessage());
-}
+// models/conexion.php
 
+class Conexion {
+    private $host = "localhost";
+    private $db = "recetario";
+    private $user = "root";
+    private $pass = "";
+    private $conexion;
+
+    public function conectar() {
+        try {
+            $this->conexion = new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user, $this->pass);
+            $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $this->conexion;
+        } catch (PDOException $e) {
+            echo "Error de conexión: " . $e->getMessage();
+        }
+    }
+}
 ?>
