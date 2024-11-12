@@ -1,15 +1,12 @@
 <?php
-class loginModel
-{
+class LoginModel {
     private $db;
 
-    public function __construct($dbConnection)
-    {
-        $this->db = $dbConnection;
+    public function __construct($db) {
+        $this->db = $db;
     }
 
-    public function autenticarUsuario($correo, $contrasenia)
-    {
+    public function autenticarUsuario($correo, $contrasenia) {
         try {
             // Preparar la consulta SQL
             $sql = "SELECT * FROM usuarios WHERE correo = :correo LIMIT 1";
@@ -32,5 +29,4 @@ class loginModel
         }
     }
 }
-
 ?>
