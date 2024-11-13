@@ -14,7 +14,7 @@ switch ($page) {
         include 'view/home_sesion.php';
         break;
 	case 'Mis_recetas':
-		include 'view/Mis_recetas.html';
+		include 'view/Mis_recetas.php';
 		break;
     default:
         include 'view/home_sinsesion.html'; 

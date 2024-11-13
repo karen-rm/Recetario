@@ -1,7 +1,9 @@
-$(document).ready(function() { // esta línea asegura que el código dentro de la función se ejecute una vez que el documento HTML haya terminado de cargarse completamente
+$(document).ready(function() {
+  
+   // esta línea asegura que el código dentro de la función se ejecute una vez que el documento HTML haya terminado de cargarse completamente
     // Llamada AJAX para obtener las recetas
     $.ajax({
-         url: '/Recetario/controllers/ctr_receta.php',// El archivo PHP del controlador
+         url: '../Recetario/controllers/ctr_receta.php',// El archivo PHP del controlador
         method: 'GET', //  aqui defino el método HTTP que se utilizará para la solicitud
         dataType: 'json', // aqui indico el tipo de datos que se espera recibir del servidor
         success: function(data) {
