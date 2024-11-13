@@ -20,25 +20,25 @@ class Ingrediente {
         return $this->id_ingresiente; 
     }
 
-    public function agregarIngrediente($ingrediente) {
-    // Consulta SQL con los nombres correctos de las columnas y valores
-    $sql = "INSERT INTO ingredientes (id_receta, nombre, cantidad)
-            VALUES (:id_receta, :nombre, :cantidad)"; 
-            
-    $stmt = $this->conexion->prepare($sql);
+      public function agregarIngrediente($ingrediente) {
+      // Consulta SQL con los nombres correctos de las columnas y valores
+      $sql = "INSERT INTO ingredientes (id_receta, nombre, cantidad)
+              VALUES (:id_receta, :nombre, :cantidad)"; 
+              
+      $stmt = $this->conexion->prepare($sql);
 
-    // Obtener los atributos del objeto Ingrediente pasado como parámetro
-    $stmt->bindParam(':id_receta', $ingrediente->id_receta);
-    $stmt->bindParam(':nombre', $ingrediente->nombre);
-    $stmt->bindParam(':cantidad', $ingrediente->cantidad);
+      // Obtener los atributos del objeto Ingrediente pasado como parámetro
+      $stmt->bindParam(':id_receta', $ingrediente->id_receta);
+      $stmt->bindParam(':nombre', $ingrediente->nombre);
+      $stmt->bindParam(':cantidad', $ingrediente->cantidad);
 
-    // Ejecuta la consulta y verifica el resultado
-    if ($stmt->execute()) {
-        return true;  // Retorna true si la inserción fue exitosa
-    } else {
-        return false; // Retorna false si hubo un error
-    }
-}
+      // Ejecuta la consulta y verifica el resultado
+      if ($stmt->execute()) {
+          return true;  // Retorna true si la inserción fue exitosa
+      } else {
+          return false; // Retorna false si hubo un error
+      }
+  }
 
 }
 ?>

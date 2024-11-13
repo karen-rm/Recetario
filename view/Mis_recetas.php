@@ -13,10 +13,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
+
+  
     <div id="contenedor-recetas" class="recetas-container"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../Recetario/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../Recetario/js/Mis_recetas.js"></script>
+
+    
 
     <!-- Botón de prueba para agregar receta -->
     <div class="container-fluid">
@@ -35,7 +39,7 @@
     <form id="formReceta">
       <div class="mb-3">
         <label for="titulo">Título de la receta</label>
-        <input type="text" class="form-control" id="titulo" required pattern="[A-Za-z\s]+" title="Solo se permiten letras">
+        <input type="text" class="form-control" id="titulo" name="titulo" required pattern="[A-Za-z\s]+" title="Solo se permiten letras">
       </div>
 
       <div class="mb-3">
@@ -43,10 +47,10 @@
         <div id="ingredientes-container">
           <div class="row ingrediente">
             <div class="col">
-              <input type="text" class="form-control" placeholder="Ingrediente" required >
+              <input type="text" class="form-control" name="ingrediente"  placeholder="Ingrediente" required >
             </div>
             <div class="col">
-              <input type="text" class="form-control" placeholder="Cantidad" required >
+              <input type="text" class="form-control" name="cantidad" placeholder="Cantidad" required >
             </div>
             <div class="col-auto">
         <button type="button" class="btn btn-danger eliminar-ingrediente" disabled>
@@ -62,13 +66,13 @@
 
       <div class="mb-3">
         <label for="instrucciones">Instrucciones</label>
-        <textarea class="form-control" id="instrucciones" rows="4" required></textarea>
+        <textarea class="form-control" id="instrucciones" name="instrucciones" rows="4" required></textarea>
       </div>
 
       <div class="row mb-3">
         <div class="col">
           <label for="tiempo">Tiempo de preparación</label>
-          <input type="number" class="form-control" id="tiempo" required min="1">
+          <input type="number" class="form-control" id="tiempo" name="tiempo" required min="1">
 
         </div>
         <div class="col">
