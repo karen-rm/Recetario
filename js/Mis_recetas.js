@@ -61,14 +61,17 @@
       
       newIngrediente.innerHTML = `
         <div class="col">
+          <p></p>
           <input type="text" class="form-control" name="ingrediente" placeholder="Ingrediente" required>
         </div>
         <div class="col">
+        <p></p>
           <input type="number" class="form-control" name="cantidad" placeholder="Cantidad" required>
         </div>
         <div class="col-auto">
+        <p></p>
           <button type="button" class="btn btn-danger eliminar-ingrediente">
-            <i class="bi bi-trash"></i>
+            <i class="bi bi-x"></i>
           </button>
         </div>
       `;
