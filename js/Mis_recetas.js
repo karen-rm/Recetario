@@ -100,23 +100,16 @@
       event.preventDefault();
       console.log("Formulario enviado");
       
-      // Obtener los datos del formulario: 
+      // Obtener los datos del formulario con un objeto FromData para tambien recuprar la img 
 
-         // Obtener los datos del formulario como un arreglo de objetos
-    var formDataArray = $(this).serializeArray();
+      // Crear un objeto FormData 
+      var formData = new FormData(this);
     
-    // Puedes recorrer el arreglo y usar los datos
-    formDataArray.forEach(function(field) {
-        console.log("Nombre: " + field.name + ", Valor: " + field.value);
-    });
-
-        // Crear un objeto FormData
-      //var formData = new FormData(this);
-    
-        // Acceder a cada campo en el FormData
-      /*for (var [key, value] of formData.entries()) {
+      // Acceder a cada campo en el FormData
+      for (var [key, value] of formData.entries()) {
           console.log(key, value);
-      }*/
+      }
+      
 
     });
     
