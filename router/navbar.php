@@ -8,27 +8,49 @@ $nav = <<<HTML
         .navbar-nav {
             margin-left: auto; 
         }
+
+        .custom-btn {
+            background-color: #F4A261;
+            color: white;
+            border: none;
+            padding: 8px 20px; /* Ajusta el tamaño del botón si es necesario */
+            font-weight: bold;
+        }
+
+        .custom-btn:hover {
+            background-color: #e3924f; /* Color ligeramente más oscuro en hover */
+            color: white;
+        }
+
+        /* Ajusta la separación entre los botones */
+        .navbar .nav-item {
+            margin-right: 15px; /* Espacio entre los botones */
+        }
+
     </style>
     <header class="shadow ">
         <nav class="navbar navbar-expand-lg navbar-light p-3 shadow ">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav ml-auto">
-			  
+       
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+    
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-				
-                  <a class="nav-link" href="index.php?page=Inicio">Inicio</a>
+                    <!-- Botón personalizado con margen -->
+                    <a class="btn custom-btn me-3" href="index.php?page=Inicio">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=registro">Iniciar Sesión</a>
+                    <!-- Botón personalizado con margen -->
+                    <a class="btn custom-btn" href="index.php?page=registro">Iniciar Sesión</a>
                 </li>
-              </ul>
-            </div>
+            </ul>
+        </div>
+    </div>
         </nav>
     </header>
 HTML;
 
 echo $nav;
-?>
