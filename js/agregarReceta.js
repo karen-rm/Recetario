@@ -1,5 +1,5 @@
-$(document).ready(function () {
-  // Alternar visibilidad del formulario de agregar receta
+$(document).ready(function(){
+// Alternar visibilidad del formulario de agregar receta
   $('#btn_agregar_receta').on('click', function () {
     console.log('Botón presionado');
     $('#contenedor_form_agregar').toggleClass('hidden');
@@ -56,102 +56,31 @@ $(document).ready(function () {
   document.querySelectorAll('.eliminar-ingrediente').forEach((button) => {
     agregarEventoEliminar(button);
   });
-
+  //Función para enviar los datos al ctrlReceta para agegar receta con sus ingredientes
   $('#formReceta').on('submit', function (event) {
     event.preventDefault();
-    console.log('Obteniendo datos ... ');
+    //console.log('Obteniendo datos ... ');
 
-    // Crear el objeto con los datos del formulario
-    const postData = {
-      titulo: $('#titulo').val(),
-      instrucciones: $('#instrucciones').val(),
-      tiempo: $('#tiempo').val(),
-    };
-
-    // Convertir el objeto a JSON
-    const jsonData = JSON.stringify(postData);
-    console.log('Datos enviados en JSON:', jsonData);
-
-    // Enviar los datos del formulario al servidor
-    $.ajax({
-      url: '../Recetario/controllers/ctr_receta.php?action=agregarReceta',
-      type: 'POST',
-      data: jsonData,
-      contentType: 'application/json', // Especifica el tipo de contenido
-      dataType: 'json',
-      success: function (response) {
-        // Manejar la respuesta del servidor
-        if (response.success) {
-          alert(response.message); // Mostrar mensaje de éxito
-
-          // Si la respuesta es exitosa, proceder con la carga de la imagen
-          //cargarImagen(response.id_receta);
-
-          //Si la respuesta es exitosa, proceder con la carga de los ingredientes
-
-          //refrescar el contenido
-        } else {
-          alert(response.message); // Mostrar mensaje de error
+        // Función para obtener solo el nombre del archivo seleccionado
+    function obtenerNombreImagen(input) {
+        if (input.files && input.files[0]) {
+            return input.files[0].name; // Obtiene solo el nombre del archivo
         }
-      },
-      error: function (xhr, status, error) {
-        console.error('Error en la solicitud AJAX: ', status, error);
-        alert(
-          'Error en la solicitud AJAX. Por favor, revise la consola para más detalles.'
-        );
-      },
-    });
-  });
-
-  /*// Función para cargar la imagen
-  function cargarImagen(idReceta) {
-    const formData = new FormData();
-    formData.append('imagen', $('#imagen')[0].files[0]);
-    formData.append('id_receta', idReceta); // Agregar el id_receta para asociar la imagen con la receta
-
-    $.ajax({
-      url: '../Recetario/controllers/ctr_receta.php?action=cargarImagen',
-      type: 'POST',
-      data: formData,
-      processData: false, // Evita que jQuery procese los datos
-      contentType: false, // No enviar el contentType
-      dataType: 'json',
-      success: function (response) {
-        // Manejar la respuesta de la carga de la imagen
-        if (response.success) {
-          alert(response.message); // Mostrar mensaje de éxito
-        } else {
-          alert(response.message); // Mostrar mensaje de error
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error('Error en la solicitud AJAX de imagen: ', status, error);
-        alert('Error en la carga de la imagen. Revisa la consola.');
-      },
-    });
-  }*/
-
-  //Función para enviar los datos al ctrlReceta para agegar receta con sus ingredientes
-  /*$('#formReceta').on('submit', function (event) {
-    event.preventDefault();
-    console.log('Obteniendo datos ... ');
-
-    // Obtener los datos del formulario con un objeto FromData para tambien recuprar la img
+        return '';
+    }
 
     // Crear un objeto con los datos
     const postData = {
       titulo: $('#titulo').val(),
       instrucciones: $('#instrucciones').val(),
       tiempo: $('#tiempo').val(),
+      imagen: obtenerNombreImagen(document.getElementById('imagen')) // Llama a la función con el elemento de entrada
     };
 
     // Convertir el objeto a JSON
     const jsonData = JSON.stringify(postData);
-    console.log('Datos enviados en JSON:', jsonData);
+    //console.log('Datos enviados en JSON:', jsonData);
 
-    //crear un objeto con la imagen
-    const formData = new FormData();
-    formData.append('imagen', $('#imagen')[0].files[0]);
 
     $.ajax({
       url: '../Recetario/controllers/ctr_receta.php?action=agregarReceta',
@@ -178,29 +107,9 @@ $(document).ready(function () {
         );
       },
     });
+  });
 
-    $.ajax({
-      url: '../Recetario/controllers/ctr_receta.php?action=agregarReceta',
-      type: 'POST',
-      data: formData,
-      processData: false, // Evita que jQuery procese los datos
-      contentType: false, // Evita que jQuery establezca el tipo de contenido
-      dataType: 'json',
-      success: function (response) {
-        // Manejar la respuesta del servidor
-        if (response.success) {
-          alert(response.message); // Mostrar mensaje de éxito
-        } else {
-          alert(response.message); // Mostrar mensaje de error
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error('Error en la solicitud AJAX: ', status, error);
-        console.log('Respuesta del servidor: ', xhr.responseText); // Añadir esta línea para depurar
-        alert(
-          'Error en la solicitud AJAX. Por favor, revise la consola para más detalles.'
-        );
-      },
-    });
-  });*/
-});
+
+
+
+})

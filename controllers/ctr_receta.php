@@ -43,64 +43,44 @@ class RecetaController {
 		 exit();
     }
 
-    public function agregarReceta() {
+ public function agregarReceta() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_usuario = $this->usuarioModel->obtenerIdUsuario(); 
             if ($id_usuario) {
                 $jsonData = file_get_contents("php://input");
-                $data = json_decode($jsonData, true);
+                $data = json_decode($jsonData, true); // true convierte JSON a un array asociativo
+                
 
                 $titulo = $data['titulo'] ?? null;
                 $instrucciones = $data['instrucciones'] ?? null;
                 $tiempo = $data['tiempo'] ?? null;
+                $imagen = $data['imagen'] ?? null; 
 
-                $receta = new Receta(
-                    $this->conexion,
-                    $id_usuario, 
-                    $titulo,
-                    $instrucciones,
-                    $tiempo,
-                    $estado = "privado"
-                );
+               /* $response['titulo'] = $titulo;
+                $response['instrucciones'] = $instrucciones;
+                $response['tiempo'] = $tiempo;
+                $response['imagen'] = $imagen;
+                echo json_encode($response);*/
 
-                $this->recetaModel->guardarReceta($receta);
-                $id_receta = $receta->obtener_idReceta();
+                $imagen_completa = '../img_u/' . $imagen;
+                $estado="privado";  
 
-                echo json_encode([
-                    'success' => true,
-                    'message' => 'Datos insertados correctamente, el id_usuario es: ' . $id_usuario,
-                    'id_receta' => $id_receta
-                ]);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Error al insertar datos de la receta']);
-            }
-        }
-    }
-
-    public function cargarImagen() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
-                $nombreImagen = $_FILES['imagen']['name'];
-                $id_receta = $_POST['id_receta'];
-                $carpetaDestino = '../img_u/';
-                $rutaCompleta = $carpetaDestino . $nombreImagen;
-
-                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaCompleta)) {
-                    $imagen_url = $rutaCompleta;
-
-                    $receta = new Receta($this->conexion, null, null, null, null, null);
-                    if ($receta->insertarImagen($id_receta, $imagen_url)) {
-                        echo json_encode(['success' => true, 'message' => 'Imagen cargada correctamente', 'ruta' => $rutaCompleta]);
-                    } else {
-                        echo json_encode(['success' => false, 'message' => 'Error al actualizar la receta con la imagen.']);
-                    }
-                } else {
-                    echo json_encode(['success' => false, 'message' => 'Hubo un error al subir el archivo.']);
+                // Suponiendo que tienes un método para guardar la receta
+                if($this->recetaModel->agregarReceta($id_usuario, $titulo, $imagen_completa, $instrucciones, $tiempo, $estado)){
+                    echo json_encode(array('success' => true, 'message' => 'Datos insertados correctamente, el id_usuario es: '. $id_usuario));
+                }else{
+                   echo json_encode(array('success' => false, 'message' => 'Datos no insertados correctamente, el id_usuario es: '. $id_usuario));
                 }
-            } else {
-                echo json_encode(['success' => false, 'message' => 'No se ha enviado ninguna imagen o hubo un error.']);
+
+                //echo json_encode(array('success' => true, 'message' => 'Datos insertados correctamente, el id_usuario es: '. $id_usuario));
+               
+            }else {
+                echo json_encode(array('success' => false, 'message' => 'Error al insertar datos de la receta'));
             }
+            
+          
         }
+         
     }
 }
 

@@ -98,5 +98,6 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/Mis_recetas.js"></script>
+	<script src="js/agregarReceta.js"></script>
 </body>
 </html>
