@@ -39,17 +39,23 @@ $nav = <<<HTML
     </div>
         <nav class="navbar navbar-expand-lg navbar-light p-3">
             <div class="container">
-                <a class="navbar-brand" >
-                    <img src="./resources/images/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top rounded-circle">
-                   
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+            <div class="dropdown">
+                        <button class="btn rounded-circle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="./resources/images/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top rounded-circle">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                            <li><a class="dropdown-item" href="index.php?page=Inicio">Salir</a></li>
+                            <!-- <li><a class="dropdown-item" href="#">Configuración</a></li> -->
+                        </ul>
+                </div>
+                <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon "></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     
-                    <form class="d-flex search-bar">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 250px;">
+                    <form class="d-flex search-bar ">
+                        <input class="form-control w-100 me-2" type="search" placeholder="Buscar" aria-label="Search" style="width: 250px;">
                         <span class="fas fa-search search-icon"></span>
                     </form>
                     <ul class="navbar-nav ml-auto">
@@ -64,15 +70,6 @@ $nav = <<<HTML
                         </li>
                     </ul>
                 </div>
-                <div class="dropdown">
-                        <button class="btn rounded-circle fas fa-user fa-lg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Salir</a></li>
-                            <!-- <li><a class="dropdown-item" href="#">Configuración</a></li> -->
-                        </ul>
-                    </div>
             </div>
         </nav>
     </header>
