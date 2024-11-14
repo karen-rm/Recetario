@@ -12,15 +12,15 @@ class Receta {
     private $tiempo; 
     private $estado; 
 
-    public function __construct($conexion, $usuario, $titulo, $imagen_url, $instrucciones, $tiempo, $estado) {  // este metodo es el constructor 
+    public function __construct($conexion, $usuario, $titulo, $instrucciones, $tiempo, $estado) {  // este metodo es el constructor 
         $this->conexion = $conexion;
         $this->usuario = $usuario;
         $this->titulo = $titulo;
-        $this->imagen_url = $imagen_url;
         $this->instrucciones = $instrucciones;
         $this->tiempo = $tiempo;
         $this->estado = $estado;
     }
+
 
     public function obtenerRecetasPorUsuario($usuario_id) { // este metodo recibe como parametro el id de un usuario, se utiliza para recuperar las recetas de un usario al que se paso como parametro
         $sql = "SELECT * FROM recetas WHERE id_usuario = :usuario_id"; // define una consulta SQL como una cadena
@@ -37,15 +37,14 @@ class Receta {
 
     public function agregarReceta($receta) {
         // Consulta SQL con los nombres correctos de las columnas y valores
-        $sql = "INSERT INTO recetas (id_usuario, titulo, imagen_url, instrucciones, tiempo_preparacion, estado)
-                VALUES (:id_usuario, :titulo, :imagen_url, :instrucciones, :tiempo, :estado)"; 
+        $sql = "INSERT INTO recetas (id_usuario, titulo,  instrucciones, tiempo_preparacion, estado)
+                VALUES (:id_usuario, :titulo, :instrucciones, :tiempo, :estado)"; 
                 
         $stmt = $this->conexion->prepare($sql);
 
         // Obtener los atributos del objeto Receta pasado como parámetro
         $stmt->bindParam(':id_usuario', $receta->id_usuario);
         $stmt->bindParam(':titulo', $receta->titulo);
-        $stmt->bindParam(':imagen_url', $receta->imagen_url);
         $stmt->bindParam(':instrucciones', $receta->instrucciones);
         $stmt->bindParam(':tiempo', $receta->tiempo);
         $stmt->bindParam(':estado', $receta->estado);
@@ -57,6 +56,27 @@ class Receta {
             return false; // Retorna false si hubo un error
         }
     }
+
+    public function insertarImagen($id_receta, $imagen_url) {
+        // Consulta SQL para actualizar la receta con la imagen
+        $sql = "UPDATE recetas SET imagen_url = :imagen_url WHERE id_receta = :id_receta"; 
+
+        // Preparar la consulta
+        $stmt = $this->conexion->prepare($sql);
+
+        // Vincular parámetros
+        $stmt->bindParam(':imagen_url', $imagen_url, PDO::PARAM_STR);
+        $stmt->bindParam(':id_receta', $id_receta, PDO::PARAM_INT);
+
+        // Ejecutar la consulta y verificar el resultado
+        if ($stmt->execute()) {
+            return true; // Imagen actualizada con éxito
+        } else {
+            return false; // Error al actualizar la imagen
+        }
+    }
+
+    
 
 }
 ?>

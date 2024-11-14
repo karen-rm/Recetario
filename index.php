@@ -1,4 +1,6 @@
 <?php
+
+
 // Define la página por defecto
 $page = isset($_GET['page']) ? $_GET['page'] : 'home'; // Página predeterminada
 
@@ -11,10 +13,10 @@ switch ($page) {
         include 'view/login.php';
         break;
 	case 'Iniciosesion':
-        include 'view/home_sesion.php';
+        include '../Recetario/view/home_sesion.php';
         break;
 	case 'Mis_recetas':
-		include 'view/Mis_recetas.php';
+		include '../Recetario/view/Mis_recetas.php';
 		break;
     default:
         include 'view/home_sinsesion.html'; 

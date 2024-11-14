@@ -5,13 +5,15 @@ require_once '../models/conexion.php';
 require_once '../models/Usuario.php';
 
 class CtrUsuario {
+
     private $usuarioModel;
+    private $conexion; 
 
      public function __construct() {
         // Crear una instancia de la clase Conexion
         $this->conexion = new Conexion();
         $this->usuarioModel = new Usuario($this->conexion->conectar());
-        session_start();
+        //session_start();
     }
 
     // Método para manejar el inicio de sesión
@@ -21,6 +23,7 @@ class CtrUsuario {
             $userId = $this->usuarioModel->autenticarUsuario($correo, $contraseña);
 
             if ($userId) {
+                 session_start();
                 // Guarda el ID en la sesión
                 $_SESSION['user_id'] = $userId;
                 echo "success";  // Responde con "success" si la autenticación es correcta

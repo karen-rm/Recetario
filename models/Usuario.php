@@ -10,6 +10,7 @@ class Usuario {
     // Constructor, recibe la conexión de la base de datos
     public function __construct($conexion) {
         $this->conexion = $conexion;
+        //session_start();
     }
 
     // Función para autenticar el usuario
@@ -64,16 +65,17 @@ class Usuario {
             return "Error al registrar: " . $e->getMessage();
         }
     }
-public function obtenerIdUsuario() {
-    if (!$this->id_usuario && isset($_SESSION['user_id'])) {
-        $this->id_usuario = $_SESSION['user_id'];
+    public function obtenerIdUsuario() {
+        if (!$this->id_usuario && isset($_SESSION['user_id'])) {
+            $this->id_usuario = $_SESSION['user_id'];
+        }
+        
+        // Agregar mensaje de depuración
+        error_log("ID del usuario obtenido: " . $this->id_usuario);
+        
+        return $this->id_usuario;
     }
-    
-    // Agregar mensaje de depuración
-    error_log("ID del usuario obtenido: " . $this->id_usuario);
-    
-    return $this->id_usuario;
-}
+
 
 	public function asignarIdUsuario($id) {
         return $this->id_usuario = $id;

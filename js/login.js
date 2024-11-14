@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("accion", "login");
 
         // Realizar la solicitud AJAX al controlador
-        fetch("controllers/Ctr_usuario.php", {
+        fetch("../Recetario/controllers/Ctr_usuario.php", {
             method: "POST",
             body: formData
         })
