@@ -19,6 +19,9 @@ switch ($page) {
     default:
         include 'view/home_sinsesion.html'; 
         break;
+    case 'registrarse': 
+        include 'view/registro.php';
+        break;
 }
 ?>
 
