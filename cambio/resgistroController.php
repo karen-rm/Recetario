@@ -3,7 +3,7 @@
 require_once '../models/conexion.php';
 
 // Incluir el archivo del modelo
-require_once '../models/registroModel.php';
+require_once '../models/Usuario.php';
 
 // Recibir los datos del formulario enviados por AJAX
 $nombres = $_POST['nombre'];
@@ -18,10 +18,10 @@ $contrasenia = $_POST['contraseña'];
 $contrasenia_encriptada = password_hash($contrasenia, PASSWORD_DEFAULT);
 
 // Crear una instancia del modelo y pasarle la conexión
-$registroModel = new RegistroModel($conexion);
+$registroModel = new CtrUsuario($conexion);
 
 // Llamar al método registrarUsuario del modelo para insertar los datos en la base de datos
-$resultado = $registroModel->registrarUsuario($nombres, $apellido_paterno, $apellido_materno, $correo, $telefono, $usuario, $contrasenia_encriptada);
+$resultado = $registroModel->registrar($nombres, $apellido_paterno, $apellido_materno, $correo, $telefono, $usuario, $contrasenia_encriptada);
 
 // Devolver la respuesta
 echo $resultado;  // Puede devolver 'success' o el mensaje de error si ocurrió algún problema
