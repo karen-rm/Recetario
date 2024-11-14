@@ -5,7 +5,7 @@ class Conexion {
     private $host = "localhost";
     private $db = "recetario";
     private $user = "root";
-    private $pass = "13mysql22";
+    private $pass = "";
     private $conexion;
 
     public function conectar() {

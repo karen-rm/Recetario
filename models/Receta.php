@@ -1,6 +1,6 @@
 <?php
 // En Receta.php, ajusta la ruta de la siguiente manera
-require_once __DIR__ . '../conexion.php';
+require_once __DIR__ . '/conexion.php';
 
 class Receta {
     private $conexion; // este atributo se usara para almacenar la conexion de bd 
@@ -12,14 +12,15 @@ class Receta {
     private $tiempo; 
     private $estado; 
 
-    public function __construct($conexion, $usuario, $titulo, $instrucciones, $tiempo, $estado) {  // este metodo es el constructor 
-        $this->conexion = $conexion;
-        $this->usuario = $usuario;
-        $this->titulo = $titulo;
-        $this->instrucciones = $instrucciones;
-        $this->tiempo = $tiempo;
-        $this->estado = $estado;
-    }
+   public function __construct($conexion, $usuario = null, $titulo = null, $instrucciones = null, $tiempo = null, $estado = null) {
+    $this->conexion = $conexion;
+    $this->usuario = $usuario;
+    $this->titulo = $titulo;
+    $this->instrucciones = $instrucciones;
+    $this->tiempo = $tiempo;
+    $this->estado = $estado;
+}
+
 
 
     public function obtenerRecetasPorUsuario($usuario_id) { // este metodo recibe como parametro el id de un usuario, se utiliza para recuperar las recetas de un usario al que se paso como parametro
