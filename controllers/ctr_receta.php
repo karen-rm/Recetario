@@ -49,12 +49,15 @@ class RecetaController {
             if ($id_usuario) {
                 $jsonData = file_get_contents("php://input");
                 $data = json_decode($jsonData, true); // true convierte JSON a un array asociativo
-                
+				
+            $imagenTmpNombre = $_FILES['imagen']['tmp_name'];
+            $nombreImagen = basename($_FILES['imagen']['name']);
+            $imagen_completa = '../img_u/' . $nombreImagen;
 
                 $titulo = $data['titulo'] ?? null;
                 $instrucciones = $data['instrucciones'] ?? null;
                 $tiempo = $data['tiempo'] ?? null;
-                $imagen = $data['imagen'] ?? null; 
+                  $imagen = $_FILES['imagen']['name'] ?? null; 
 
                /* $response['titulo'] = $titulo;
                 $response['instrucciones'] = $instrucciones;
@@ -62,26 +65,25 @@ class RecetaController {
                 $response['imagen'] = $imagen;
                 echo json_encode($response);*/
 
-                $imagen_completa = '../img_u/' . $imagen;
+                //$imagen_completa = '../img_u/' . $imagen;
                 $estado="privado";  
 
                 // Suponiendo que tienes un método para guardar la receta
-                if($this->recetaModel->agregarReceta($id_usuario, $titulo, $imagen_completa, $instrucciones, $tiempo, $estado)){
-                    echo json_encode(array('success' => true, 'message' => 'Datos insertados correctamente, el id_usuario es: '. $id_usuario));
-                }else{
-                   echo json_encode(array('success' => false, 'message' => 'Datos no insertados correctamente, el id_usuario es: '. $id_usuario));
+		if ($this->recetaModel->agregarReceta($id_usuario, $titulo, $imagen_completa, $instrucciones, $tiempo, $estado)) {
+                // Mover el archivo a la ubicación final
+                if (move_uploaded_file($imagenTmpNombre, $imagen_completa)) {
+                    echo json_encode(array('success' => true, 'message' => 'Datos insertados correctamente, el id_usuario es: ' . $id_usuario));
+                } else {
+                    echo json_encode(array('success' => false, 'message' => 'Error al mover la imagen al destino.'));
                 }
-
-                //echo json_encode(array('success' => true, 'message' => 'Datos insertados correctamente, el id_usuario es: '. $id_usuario));
-               
-            }else {
-                echo json_encode(array('success' => false, 'message' => 'Error al insertar datos de la receta'));
+            } else {
+                echo json_encode(array('success' => false, 'message' => 'Datos no insertados correctamente, el id_usuario es: ' . $id_usuario));
             }
-            
-          
-        }
-         
-    }
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Error al subir el archivo de imagen.'));
+			}
+		}
+	}
 }
 
 $controller = new RecetaController();

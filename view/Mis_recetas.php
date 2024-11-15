@@ -16,6 +16,7 @@
 </head>
 <body>
     <div id="contenedor-recetas" class="recetas-container"></div>
+	
     <!-- Botón de prueba para agregar receta -->
     <div class="container-fluid">
         <!-- Div donde se cargará el formulario agregar -->
