@@ -1,20 +1,20 @@
 <?php
-require_once 'conexion.php'; 
-
-class Usuario {
+class Usuario
+{
     private $conexion;
-	private $id_usuario;
-	private $usuario;
-	private $correo;
-	private $contrasegna;
+    private $id_usuario;
+    private $usuario;
+    private $correo;
+    private $contrasegna;
     // Constructor, recibe la conexión de la base de datos
-    public function __construct($conexion) {
+    public function __construct($conexion)
+    {
         $this->conexion = $conexion;
-        //session_start();
     }
 
     // Función para autenticar el usuario
-    public function autenticarUsuario($correo, $contraseña) {
+    public function autenticarUsuario($correo, $contraseña)
+    {
         try {
             // Prepara la consulta para obtener la contraseña encriptada y el identificador
             $stmt = $this->conexion->prepare("SELECT id_usuario, contrasenia FROM usuarios WHERE correo = :correo");
@@ -25,12 +25,17 @@ class Usuario {
             if ($stmt->rowCount() > 0) {
                 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                // Verifica la contraseña ingresada con la almacenada
-                if ($contraseña === $usuario['contrasenia']) {
+                // Verifica la contraseña ingresada con la almacenada usando password_verify
+                if (password_verify($contraseña, $usuario['contrasenia'])) {
                     // Retorna el identificador del usuario
-					 $_SESSION['user_id'] = $usuario['id_usuario']; // Guarda el ID en la sesión
-                return $usuario['id_usuario'];
+                    $_SESSION['user_id'] = $usuario['id_usuario']; // Guarda el ID en la sesión
+                    //return $usuario['id_usuario']; 
+                    return true; // Autenticación exitosa   
+                } else {
+                    error_log("Contraseña incorrecta para el usuario: $correo");
                 }
+            } else {
+                error_log("Usuario no encontrado: $correo");
             }
             return false; // Autenticación fallida
         } catch (PDOException $e) {
@@ -39,7 +44,8 @@ class Usuario {
     }
 
     // Función para registrar el usuario en la base de datos
-    public function registrarUsuario($nombres, $apellido_paterno, $apellido_materno, $correo, $telefono, $usuario, $contrasenia) {
+    public function registrarUsuario($nombres, $apellido_paterno, $apellido_materno, $correo, $telefono, $usuario, $contrasenia)
+    {
         try {
             // Comenzar una transacción
             $this->conexion->beginTransaction();
@@ -65,20 +71,21 @@ class Usuario {
             return "Error al registrar: " . $e->getMessage();
         }
     }
-    public function obtenerIdUsuario() {
+
+    public function obtenerIdUsuario()
+    {
         if (!$this->id_usuario && isset($_SESSION['user_id'])) {
             $this->id_usuario = $_SESSION['user_id'];
         }
-        
+
         // Agregar mensaje de depuración
         error_log("ID del usuario obtenido: " . $this->id_usuario);
-        
+
         return $this->id_usuario;
     }
 
-
-	public function asignarIdUsuario($id) {
+    public function asignarIdUsuario($id)
+    {
         return $this->id_usuario = $id;
     }
 }
-?>
