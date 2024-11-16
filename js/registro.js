@@ -78,7 +78,7 @@ $(document).ready(function () {
     const formData = new FormData($("#registroForm")[0]);
     formData.append("accion", "registro");
 
-    fetch("/controllers/registroCtrl.php", {
+    fetch("Registro/controllers/registroCtrl.php", {
       method: "POST",
       body: formData,
     })
