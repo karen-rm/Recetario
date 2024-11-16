@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido al registro</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../css/registroStyles.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/registroStyles.css">
     <!-- Tipografía Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -65,8 +65,8 @@
         </form>
     </div>
 </div> <!-- Fin modal registro -->
-<script type="text/javascript" src="../resources/css/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="/js/registro.js"></script>
+<script type="text/javascript" src="resources/css/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="js/registro.js"></script>
 </body>
 
 </html>
