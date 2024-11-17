@@ -45,7 +45,7 @@ $nav = <<<HTML
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                            <li><a class="dropdown-item" href="index.php?page=Inicio">Salir</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" data-page="Inicio">Salir</a></li>
                             <!-- <li><a class="dropdown-item" href="#">Configuración</a></li> -->
                         </ul>
                 </div>
@@ -60,13 +60,13 @@ $nav = <<<HTML
                     </form>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=Iniciosesion">Inicio</a>
+                            <a class="nav-link" href="javascript:void(0)" data-page="Iniciosesion">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=Mis_recetas" >Mis recetas</a>
+                            <a class="nav-link" href="javascript:void(0)" data-page="Mis_recetas" >Mis recetas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" >Favoritos</a>
+                            <a class="nav-link" href="javascript:void(0)" >Favoritos</a>
                         </li>
                     </ul>
                 </div>

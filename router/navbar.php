@@ -40,11 +40,11 @@ $nav = <<<HTML
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <!-- Botón personalizado con margen -->
-                    <a class="btn custom-btn me-3" href="index.php?page=Inicio">Inicio</a>
+                    <a class="btn custom-btn me-3" href="javascript:void(0)"  data-page="Inicio">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <!-- Botón personalizado con margen -->
-                    <a class="btn custom-btn" href="index.php?page=registro">Iniciar Sesión</a>
+                    <a class="btn custom-btn" href="javascript:void(0)" data-page="registro">Iniciar Sesión</a>
                 </li>
             </ul>
         </div>

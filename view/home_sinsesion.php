@@ -1,24 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <!--Css para login-->
-    <link rel="stylesheet" href="css/home.css">
-    <!--Css y js de bootstrap-->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!--icono importado via cdn-->
-    <script type="text/javascript" src="bootstrap/bootstrap.bundle.min.js"></script>
-    <!--Tipografia poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!--Tipografia Sofia-->
-    <link href="https://fonts.googleapis.com/css2?family=Sofia:wght@400;600&display=swap" rel="stylesheet">
-</head>
-
-<body>
 <?php include 'router/navbar.php';?>
     <div class="container-fluid">
         <section class="busqueda">
@@ -158,5 +137,3 @@
             </ul>
         </footer>
     </div>
-</body>
-</html>

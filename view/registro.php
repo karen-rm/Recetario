@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido al registro</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/registroStyles.css">
-    <!-- Tipografía Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-</head>
-
-<body>
-
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="container-form " style="background-color: #D9D9D9;">
 
@@ -65,8 +47,3 @@
         </form>
     </div>
 </div> <!-- Fin modal registro -->
-<script type="text/javascript" src="resources/css/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="js/registro.js"></script>
-</body>
-
-</html>
