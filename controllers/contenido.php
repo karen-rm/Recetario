@@ -23,6 +23,10 @@ switch ($opcion) {
 	case 'mis-recetas':
 		include '../view/Mis_recetas.php';
 		break;
+
+    case 'favoritos':
+		include '../view/favoritos.php';
+		break;
     default:
         include '../view/home.php'; 
         break;

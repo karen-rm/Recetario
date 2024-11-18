@@ -47,5 +47,5 @@
         </form>
     </div>
 </div> <!-- Fin modal registro -->
-<!-- <script type="text/javascript" src="../resources/css/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="/js/registro.js"></script> -->
+
+<script src="./js/registro.js"></script>

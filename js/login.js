@@ -15,6 +15,7 @@ $(document).ready(function () {
     function isFieldEmpty(field) {
         return !field.val().trim();
     }
+    
 
     // Función para manejar el envío del formulario
     function handleFormSubmit(event) {

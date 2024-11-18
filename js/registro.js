@@ -114,6 +114,11 @@ $(document).ready(function () {
       });
   }
 
+  $.getScript('inicio.js', function() {
+  console.log('El archivo JS adicional se ha cargado y ejecutado.');
+});
+
+
   // Función para manejar la respuesta de la solicitud
   function handleResponse(data) {
     console.log('Manejando la respuesta del servidor...');
@@ -128,6 +133,7 @@ $(document).ready(function () {
         }).then(() => {
           console.log('Cargando página de inicio...');
           $('#main-container').load('./view/home.php');
+          loadNavbar();
         });
         break;
       default:

@@ -37,4 +37,5 @@
     <div class="col-1 d-block d-md-none"></div>
   </div>
 </div>
-<!-- <script type="text/javascript" src="../js/login.js"></script> -->
+
+<script src="./js/login.js"></script>

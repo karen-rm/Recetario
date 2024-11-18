@@ -54,7 +54,7 @@ function cargarContenido(opcion) {
       $('#main-container').html(data);
 
       // Eliminar cualquier hoja de estilo previamente cargada (si es necesario)
-      // $('#dynamic-style').remove();
+      $('#dynamic-style').remove();
 
       // Agregar la hoja de estilos correspondiente de forma dinámica
       var styleSheet = '';
@@ -66,7 +66,14 @@ function cargarContenido(opcion) {
         styleSheet = './css/home.css'; // Ruta de la hoja de estilos para home
       } else if (opcion === 'inicio') {
         styleSheet = './css/index.css'; // Ruta de la hoja de estilos para home
+      } else if (opcion === 'mis-recetas') {
+        styleSheet = './css/Mis_recetas.css'; // Ruta de la hoja de estilos para home
+      }  else if (opcion === 'favoritos') {
+        styleSheet = './css/favoritos.css'; // Ruta de la hoja de estilos para home
       }
+
+      console.log('Cargando CSS:', styleSheet);
+      
 
       if (styleSheet) {
         // Crear un nuevo elemento <link> para la hoja de estilos
