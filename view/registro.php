@@ -47,3 +47,5 @@
         </form>
     </div>
 </div> <!-- Fin modal registro -->
+
+<script src="./js/registro.js"></script>

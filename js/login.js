@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    console.log("El archivo login.js se ha cargado correctamente");
+
+  console.log("jQuery cargado");
     // Función para mostrar mensajes de error
     function showError(message) {
         Swal.fire({
@@ -14,17 +15,19 @@ $(document).ready(function () {
     function isFieldEmpty(field) {
         return !field.val().trim();
     }
+    
 
     // Función para manejar el envío del formulario
     function handleFormSubmit(event) {
         event.preventDefault(); // Previene el envío del formulario por defecto
-        console.log("El envío del formulario ha sido interceptado");
+        console.log("Formulario enviado"); // Verifica que la función se ejecuta
 
         const correo = $("#correo");
         const contraseña = $("#contraseña");
 
         // Verificar si los campos están vacíos
         if (isFieldEmpty(correo) || isFieldEmpty(contraseña)) {
+            console.log("Campos vacíos detectados"); // Indica si hay campos vacíos
             showError("Por favor, complete todos los campos");
             return;
         }
@@ -33,40 +36,30 @@ $(document).ready(function () {
         const formData = new FormData(event.target);
         formData.append("accion", "login");
 
+        console.log("Datos enviados:", Array.from(formData.entries())); // Verifica los datos en formData
+
         // Realizar la solicitud AJAX al controlador
-        fetch("controllers/autenticarCtrl.php", {
+        fetch("./controllers/autenticarCtrl.php", {
             method: "POST",
             body: formData,
         })
-            .then((response) => response.text())
-            .then((data) => {
-                if (data.trim() === "success") {
-                    // Cambiar la URL sin recargar la página para pasar el valor a $page
-                    window.history.pushState({}, "", "index.php?page=Iniciosesion");
-
-                    // Actualizar contenido dinámicamente
-                    $.ajax({
-                        url: "content.php",
-                        method: "GET",
-                        data: { page: "Iniciosesion" },
-                        success: function (response) {
-                            $("#main-content").fadeOut(200, function () {
-                                $(this).html(response).fadeIn(200);
-                            });
-                        },
-                        error: function () {
-                            showError("Error al cargar la página de inicio de sesión.");
-                        },
-                    });
-                } else {
-                    // Mostrar mensaje de error devuelto por el servidor
-                    showError(data);
-                }
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                showError("Hubo un error al procesar la solicitud.");
-            });
+        .then((response) => response.text())
+        .then((data) => {
+            console.log("Respuesta del servidor:", data); // Verifica la respuesta del servidor
+            if (data.trim() === "success") {
+                loadNavbar();
+          // Una vez cargado el navbar, redirigir a la página principal
+          // window.location.href = "./view/home.php";
+          $('#main-container').load('./view/home.php');
+        
+            } else {
+                // Mostrar mensaje de error genérico
+                showError(data); // Muestra el mensaje de error recibido del servidor
+            }
+        })
+        .catch((error) => {
+            console.error("Error en la solicitud fetch:", error);
+        });
     }
 
     // Función para validar inputs de formulario
@@ -83,9 +76,29 @@ $(document).ready(function () {
         }
     }
 
-    // Asociar manejador de envío al formulario
-    $("#loginForm").submit(handleFormSubmit);
+     function loadNavbar() {
+      console.log("Navbar cargado correctamente.");
 
-    // Manejo de validación en tiempo real para los inputs
-    $(".form-control").on("input", validateInput);
+    // Cargar el navbar de usuario autenticado
+    $('#navbar-container').load('./components/navbar-loggedin.php', function() {
+      // Cargar los estilos para el navbar de usuario autenticado
+      var link = $('<link/>', {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: './css/navbar-loggedin.css',
+      }).appendTo('head');
+
+   
+     
+    });
+  }
+
+  
+    // Manejo formulario de inicio de sesión usando delegación de eventos
+    $(document).on("submit", "#loginForm", handleFormSubmit);
+
+    // Manejo de inputs de formulario de forma dinámica
+    $(document).on("input", ".form-control", validateInput);
+
+
 });

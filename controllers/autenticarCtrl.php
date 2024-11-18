@@ -20,6 +20,7 @@ if (isset($_POST['correo'], $_POST['contraseña'])) {
 
     // Verificar el resultado y devolver la respuesta
     if ($resultado === true) {
+        // setcookie('user_logged_in', 'true', time() + 3600, '/'); 
         echo "success";  // Éxito en la autenticación
     } else {
         echo "Error al autenticar usuario.";  // Enviar mensaje de error en caso de fallo

@@ -1,0 +1,31 @@
+nav {
+  font-family: 'Poppins', sans-serif; /* Coincide con la tipografía general */
+  font-size: 16px; /* Tamaño consistente */
+  background-color: white; /* Usa el mismo color de fondo */
+  display: flex;
+  justify-content: space-between; /* Espaciado entre elementos */
+  align-items: center;
+  padding: 5px 10px; /* Ajusta el padding para mayor coherencia */
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.custom-btn {
+  background-color: #f4a261;
+  color: white;
+  border: none;
+  padding: 8px 20px; /* Ajusta el tamaño del botón si es necesario */
+  font-weight: bold;
+}
+
+.custom-btn:hover {
+  background-color: #e3924f; /* Color ligeramente más oscuro en hover */
+  color: white;
+}
+
+/* Ajusta la separación entre los botones */
+.navbar .nav-item {
+  margin-right: 15px; /* Espacio entre los botones */
+}
