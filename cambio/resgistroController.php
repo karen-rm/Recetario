@@ -18,6 +18,7 @@ $contrasenia = $_POST['contraseña'];
 $contrasenia_encriptada = password_hash($contrasenia, PASSWORD_DEFAULT);
 
 // Crear una instancia del modelo y pasarle la conexión
+
 $registroModel = new CtrUsuario($conexion);
 
 // Llamar al método registrarUsuario del modelo para insertar los datos en la base de datos

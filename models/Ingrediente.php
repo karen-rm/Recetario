@@ -1,6 +1,6 @@
 <?php
 // En Receta.php, ajusta la ruta de la siguiente manera
-require_once __DIR__ . '../conexion.php';
+require_once __DIR__ . '/conexion.php';
 
 class Ingrediente {
     private $conexion; // este atributo se usara para almacenar la conexion de bd 
