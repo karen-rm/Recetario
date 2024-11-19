@@ -68,6 +68,7 @@ function cargarContenido(opcion) {
         styleSheet = './css/index.css'; // Ruta de la hoja de estilos para home
       } else if (opcion === 'mis-recetas') {
         styleSheet = './css/Mis_recetas.css'; // Ruta de la hoja de estilos para home
+        //styleSheet = './css/form_agregar_receta.css';
       }  else if (opcion === 'favoritos') {
         styleSheet = './css/favoritos.css'; // Ruta de la hoja de estilos para home
       }

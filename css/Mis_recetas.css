@@ -56,13 +56,13 @@
 }
 
 #btn_agregar {
-  position: fixed; 
-  bottom: 20px;    
-  right: 20px;     
-  z-index: 1000; 
-  width: 50px; 
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 50px;
   height: 50px;
-  background-color: #F4A261;  
+  background-color: #F4A261;
   border: none;
   color: white;
   transition: background-color 0.2s ease, transform 0.1s ease;
@@ -81,9 +81,9 @@
   /*position: relative;
   padding: 20px;
   width: 700px;
-  background-color: #ffffff; 
+  background-color: #ffffff;
   margin-top: 10px;
-  border-radius: 8px; 
+  border-radius: 8px;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);*/
   display: none; /* Inicialmente oculto */
   position: fixed;
@@ -94,7 +94,7 @@
   background-color: rgba(0, 0, 0, 0.5); /* Fondo borroso */
   z-index: 1000;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
 .registro-content {
@@ -109,4 +109,69 @@
   max-height: 90vh;
   border-radius: 15px;
   clip-path: inset(0 round 15px);
+}
+
+/* Formulario de agrgar receta*/
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.encabezado {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cerrar-btn{
+    font-size: 40px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.cerrar-btn:hover {
+    color: #b02a37;
+}
+
+
+.input_img{
+    border-radius: 4px;
+}
+
+hr {
+    border: none; /* Elimina el borde por defecto */
+    height: 2px;  /* Ajusta el grosor */
+    background-color: white; /* Establece el color blanco */
+}
+
+label{
+    color: #F4A261;
+}
+
+.blue{
+    color: #264653;
+}
+
+.btn_enviar{
+    background-color: #F4A261 ;
+}
+
+#btn_agregarIngrediente {
+    width: auto; /* Ajustar automáticamente al contenido */
+    display: inline-block; /* Asegurar que no ocupe todo el ancho */
+    color: #F4A261;
+}
+
+#insertar_receta {
+    border-radius: 5px; /* Mantiene esquinas redondeadas pero no en círculo */
+    width: auto; /* Deja que el ancho se ajuste al contenido */
+    height: auto; /* Ajusta la altura automáticamente */
+    padding: 10px 20px; /* Aumenta el espacio interno del botón */
+    text-align: right !important;
+    background-color: #F4A261 ;
+}
+
+#insertar_receta:active {
+    background-color: #fe790c; /* Tono más oscuro */
+    transform: scale(0.95); /* Efecto de clic */
 }

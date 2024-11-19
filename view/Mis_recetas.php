@@ -1,15 +1,7 @@
-
-  <link rel="stylesheet" href="../Recetario/css/Mis_recetas.css">
-  <link rel="stylesheet" href="../Recetario/css/form_agregar_receta.css">
-
-  <link rel="stylesheet" href="../Recetario/bootstrap/css/bootstrap.min.css">
-
-  <?php include 'router/navbarInicio.php'; ?>
-
-  <h1>Mis recetas</h1>
+ <h1>Mis recetas</h1>
 
   <div id="contenedor-recetas" class="recetas-container"></div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 
 
