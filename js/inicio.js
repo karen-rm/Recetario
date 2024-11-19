@@ -4,7 +4,7 @@ $(document).ready(function () {
   
   loadNavbar();
 
-  $(document).on('click', '.nav-item a', function (event) {
+ $(document).on('click', '.nav-item a', function (event) {
     event.preventDefault();
     var opcion = $(this).data('opcion'); // Usar data-opcion para identificar la opción
     cargarContenido(opcion);
