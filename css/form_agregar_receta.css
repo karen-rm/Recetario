@@ -1,10 +1,9 @@
 *{
   font-family: 'Poppins', sans-serif;
 }
-
 .encabezado {
-  text-align: center; 
-  margin-bottom: 20px; 
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .cerrar-btn{
@@ -16,7 +15,7 @@
 }
 
 .cerrar-btn:hover {
-  color: #b02a37; 
+  color: #b02a37;
 }
 
 
@@ -31,12 +30,12 @@ hr {
 }
 
 label{
-    color: #F4A261;
-  }
-  
+  color: #F4A261;
+}
+
 .blue{
-    color: #264653;
-  }
+  color: #264653;
+}
 
 .btn_enviar{
   background-color: #F4A261 ;
