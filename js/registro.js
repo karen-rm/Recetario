@@ -114,9 +114,21 @@ $(document).ready(function () {
       });
   }
 
-  $.getScript('inicio.js', function() {
-  console.log('El archivo JS adicional se ha cargado y ejecutado.');
-});
+  function loadNavbar() {
+    // Verificar si el usuario está autenticado
+    console.log("entra");
+
+    // Cargar el navbar de inicio de sesión y registro
+    $('#navbar-container').load('./components/navbar-loggedin.php', function () {
+      // Cargar los estilos para el navbar de visitante (no autenticado)
+      var link = $('<link/>', {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: './css/navbar-loggedin.css',
+      }).appendTo('head');
+    });
+
+  }
 
 
   // Función para manejar la respuesta de la solicitud

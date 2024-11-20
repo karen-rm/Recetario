@@ -1,4 +1,4 @@
- <h1>Mis recetas</h1>
+<h1>Mis recetas</h1>
 
   <div id="contenedor-recetas" class="recetas-container"></div>
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->

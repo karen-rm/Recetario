@@ -25,18 +25,18 @@
     font-size: 18px;
 }
 
-.opciones {
+.tarjeta .opciones {
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
-.tres-puntos {
+.tarjeta .tres-puntos {
     cursor: pointer;
     font-size: 18px;
 }
 
-.menu-opciones {
+.tarjeta .menu-opciones {
     display: none;
     position: absolute;
     top: 20px;
@@ -47,7 +47,7 @@
     padding: 10px;
 }
 
-.menu-opciones button {
+.tarjeta .menu-opciones button {
     display: block;
     margin-bottom: 5px;
     background: none;
@@ -77,7 +77,7 @@
   display: none;
 }
 
-.content {
+#contenedor_form_agregar .content {
   /*position: relative;
   padding: 20px;
   width: 700px;
@@ -97,7 +97,7 @@
   align-items: center;
 }
 
-.registro-content {
+#contenedor_form_agregar .registro-content {
   background-color: #264653;
   color: white;
   padding: 20px;
@@ -109,69 +109,4 @@
   max-height: 90vh;
   border-radius: 15px;
   clip-path: inset(0 round 15px);
-}
-
-/* Formulario de agrgar receta*/
-*{
-    font-family: 'Poppins', sans-serif;
-}
-
-.encabezado {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.cerrar-btn{
-    font-size: 40px;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-}
-
-.cerrar-btn:hover {
-    color: #b02a37;
-}
-
-
-.input_img{
-    border-radius: 4px;
-}
-
-hr {
-    border: none; /* Elimina el borde por defecto */
-    height: 2px;  /* Ajusta el grosor */
-    background-color: white; /* Establece el color blanco */
-}
-
-label{
-    color: #F4A261;
-}
-
-.blue{
-    color: #264653;
-}
-
-.btn_enviar{
-    background-color: #F4A261 ;
-}
-
-#btn_agregarIngrediente {
-    width: auto; /* Ajustar automáticamente al contenido */
-    display: inline-block; /* Asegurar que no ocupe todo el ancho */
-    color: #F4A261;
-}
-
-#insertar_receta {
-    border-radius: 5px; /* Mantiene esquinas redondeadas pero no en círculo */
-    width: auto; /* Deja que el ancho se ajuste al contenido */
-    height: auto; /* Ajusta la altura automáticamente */
-    padding: 10px 20px; /* Aumenta el espacio interno del botón */
-    text-align: right !important;
-    background-color: #F4A261 ;
-}
-
-#insertar_receta:active {
-    background-color: #fe790c; /* Tono más oscuro */
-    transform: scale(0.95); /* Efecto de clic */
 }

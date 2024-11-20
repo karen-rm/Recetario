@@ -43,56 +43,54 @@ function loadPageWithStyles(url, cssFilePath) {
     }
   });
 }
-
 function cargarContenido(opcion) {
   $.ajax({
     url: './controllers/contenido.php',
     type: 'GET',
     data: { opcion: opcion },
     success: function (data) {
-      // Cargar el contenido en el contenedor principal
       $('#main-container').html(data);
 
-      // Eliminar cualquier hoja de estilo previamente cargada (si es necesario)
-      $('#dynamic-style').remove();
+      // Eliminar cualquier hoja de estilo previamente cargada
+      $('link[data-dynamic-style]').remove();
 
-      // Agregar la hoja de estilos correspondiente de forma dinámica
-      var styleSheet = '';
+      // Lista de hojas de estilo a cargar
+      let stylesheets = []; // Inicializa un array vacío
+
+      // Selección de estilos según la opción
       if (opcion === 'login') {
-        styleSheet = './css/loginStyles.css'; // Ruta de la hoja de estilos para login
+        stylesheets = ['./css/loginStyles.css'];
       } else if (opcion === 'register') {
-        styleSheet = './css/registroStyles.css'; // Ruta de la hoja de estilos para registro
+        stylesheets = ['./css/registroStyles.css'];
       } else if (opcion === 'home') {
-        styleSheet = './css/home.css'; // Ruta de la hoja de estilos para home
+        stylesheets = ['./css/home.css'];
       } else if (opcion === 'inicio') {
-        styleSheet = './css/index.css'; // Ruta de la hoja de estilos para home
+        stylesheets = ['./css/index.css'];
       } else if (opcion === 'mis-recetas') {
-        styleSheet = './css/Mis_recetas.css'; // Ruta de la hoja de estilos para home
-        //styleSheet = './css/form_agregar_receta.css';
-      }  else if (opcion === 'favoritos') {
-        styleSheet = './css/favoritos.css'; // Ruta de la hoja de estilos para home
+        // Aquí carga múltiples estilos
+        stylesheets = ['./css/Mis_recetas.css', './css/form_agregar_receta.css'];
+      } else if (opcion === 'favoritos') {
+        stylesheets = ['./css/favoritos.css'];
       }
 
-      console.log('Cargando CSS:', styleSheet);
-      
+      console.log('Cargando CSS:', stylesheets);
 
-      if (styleSheet) {
-        // Crear un nuevo elemento <link> para la hoja de estilos
-        var link = $('<link>', {
+      // Agregar cada hoja de estilo al head
+      stylesheets.forEach(function (styleSheet) {
+        $('<link>', {
           rel: 'stylesheet',
           type: 'text/css',
           href: styleSheet,
-          id: 'dynamic-style', // Agregar un id único para eliminarla más tarde si es necesario
-        });
-        // Agregar la hoja de estilos al <head>
-        $('head').append(link);
-      }
+          'data-dynamic-style': true // Atributo para identificar estilos dinámicos
+        }).appendTo('head');
+      });
     },
     error: function (xhr, status, error) {
       console.error('Error:', status, error);
     },
   });
 }
+
 
 
 
