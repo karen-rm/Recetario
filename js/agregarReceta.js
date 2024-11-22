@@ -1,3 +1,5 @@
+import { mostrarRecetas, obtenerRecetas } from './helpers.js';
+
 $(document).ready(function () {
   const modal = document.getElementById('contenedor_form_agregar');
 
@@ -32,14 +34,13 @@ $(document).ready(function () {
       newIngrediente.classList.add('row', 'ingrediente');
 
       newIngrediente.innerHTML = `
-       
               <div class="col">
               <p></p>
-                <input type="text" class="form-control" name="ingrediente" placeholder="Ingrediente" pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras" required>
+                <input type="text" class="form-control" name="ingrediente" placeholder="Ingrediente" required>
               </div>
               <div class="col">
                 <p></p>
-                <input type="number" class="form-control" name="cantidad" placeholder="Cantidad" pattern="\d+" title="Solo se permiten números" required>
+                <input type="number" class="form-control" name="cantidad" placeholder="Cantidad"  required>
               </div>
               <div class="col">
               <p></p>
@@ -96,7 +97,7 @@ $(document).ready(function () {
     //console.log('Obteniendo datos ... ');
 
     function enviarImagen(idreceta) {
-      console.log('enviando img');
+      //console.log('enviando img');
       // Obtener la imagen desde el input
       const inputImagen = document.getElementById('imagen');
 
@@ -108,7 +109,7 @@ $(document).ready(function () {
       formData.forEach((value, key) => {
         console.log(key, value);
       });
-       formData.append('idreceta', idreceta); // Agregar el id_receta con la clave "idreceta"
+      formData.append('idreceta', idreceta); // Agregar el id_receta con la clave "idreceta"
 
       // Realizar la petición AJAX con jQuery
       $.ajax({
@@ -120,45 +121,88 @@ $(document).ready(function () {
         success: function (response) {
           console.log('Imagen subida con éxito:', response);
           alert('Imagen subida correctamente.');
+
+           // Actualizar la lista de recetas
+            obtenerRecetas((error, recetas) => {
+                if (error) {
+                    console.error("Error al actualizar recetas:", error);
+                    return;
+                }
+
+                // Vuelve a mostrar las recetas actualizadas
+                mostrarRecetas(recetas);
+
+                // Opcional: Forzar la recarga de la imagen recién subida
+                const recetaImagen = document.querySelector(
+                    `img[src="img_u/${response.imagen_url}"]`
+                );
+                if (recetaImagen) {
+                    recetaImagen.src = `img_u/${response.imagen_url}?t=${new Date().getTime()}`;
+                }
+            });
+
         },
         error: function (xhr, status, error) {
           console.error('Error en la solicitud AJAX: ', status, error);
           console.log('Respuesta del servidor: ', xhr.responseText); // Añadir esta línea para depurar
           alert(
-            'Error en la solicitud AJAX. Por favor, revise la consola para más detalles.'
+            'Error en la solicitud AJAX img. Por favor, revise la consola para más detalles.'
           );
         },
       });
     }
 
     // Función para obtener los ingredientes
-    function obtenerIngredientes() {
-      const ingredientes = []; // Arreglo para almacenar los ingredientes
+    function guardarIngredientes(id_receta) {
+    const ingredientes = []; // Arreglo para almacenar los ingredientes
 
-      // Seleccionamos todos los contenedores de ingredientes
-      const ingredientesRows = document.querySelectorAll(
-        '#ingredientes-container .ingrediente'
-      );
+    // Seleccionamos todos los contenedores de ingredientes
+    const ingredientesRows = document.querySelectorAll('#ingredientes-container .ingrediente');
 
-      // Recorremos cada fila de ingredientes
-      ingredientesRows.forEach((row) => {
-        const ingrediente = row
-          .querySelector('[name="ingrediente"]')
-          .value.trim();
+    // Recorremos cada fila de ingredientes
+    ingredientesRows.forEach((row) => {
+        const ingrediente = row.querySelector('[name="ingrediente"]').value.trim();
         const cantidad = row.querySelector('[name="cantidad"]').value.trim();
         const medida = row.querySelector('[name="select_medida"]');
-        const medidaTexto = medida.selectedOptions[0].text.trim(); // Obtenemos el texto visible
+        const medidaValor = medida.value.trim(); // Obtenemos el valor seleccionado del select
 
         // Validamos si los campos tienen datos antes de agregar
-        if (ingrediente && cantidad && medidaTexto) {
-          ingredientes.push({ ingrediente, cantidad, medida: medidaTexto });
+        if (ingrediente && cantidad && medidaValor) {
+            ingredientes.push({ ingrediente, cantidad, medidaValor });
         }
-      });
+    });
 
-      console.log('Ingredientes:', ingredientes);
+    //console.log('Ingredientes:', ingredientes);
 
-      // Aquí puedes enviar los datos a tu servidor o procesarlos como necesites
-    }
+    // Crear el objeto que incluye el id_receta
+    const dataToSend = {
+        id_receta,  // Incluimos el id_receta
+        ingredientes // Incluimos el arreglo de ingredientes
+    };
+
+    // Convertir el objeto a JSON
+    const jsonData = JSON.stringify(dataToSend);
+    
+
+    // Enviar la solicitud AJAX
+    $.ajax({
+        url: '../Recetario/controllers/ctr_ingrediente.php',
+        type: 'POST',
+        data: jsonData,               // Enviar los datos como JSON
+        contentType: 'application/json', // Indicar que el contenido es JSON
+        dataType: 'json',             // Esperar respuesta JSON
+        success: function (response) {
+            console.log('Respuesta del servidor:', response);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error en la solicitud AJAX:', status, error);
+            console.log('Respuesta del servidor:', xhr.responseText); // Depurar la respuesta
+            alert('Error en la solicitud AJAX ingredientes. Por favor, revise la consola para más detalles.');
+        }
+    });
+}
+
+
 
     // Crear un objeto con los datos
     const postData = {
@@ -186,17 +230,27 @@ $(document).ready(function () {
           // Recupera el id_receta de la respuesta y guardarlo en una variable
           var idReceta = response.id_receta; // Aquí tienes el id de la receta
 
-          console.log('ID de la receta:', idReceta); // Esto es solo para depuración
+          //console.log('ID de la receta:', idReceta); // Esto es solo para depuración
 
           // Ahora puedes utilizar el idReceta para otras funciones
+          guardarIngredientes(idReceta);
           enviarImagen(idReceta); // Pasa el idReceta a la función enviarImagen
-          obtenerIngredientes();
+          
 
           // Limpiar el formulario
-        $('#formReceta')[0].reset();  // Limpiar el formulario usando jQuery
+          $('#formReceta')[0].reset(); // Limpiar el formulario usando jQuery
 
-         document.getElementById('contenedor_form_agregar').style.display = 'none';
-        document.getElementById('btn_agregar').style.display = 'flex';
+          document.getElementById('contenedor_form_agregar').style.display =
+            'none';
+          document.getElementById('btn_agregar').style.display = 'flex';
+
+         /* obtenerRecetas((error, data) => {
+        if (error) {
+            console.error("Error al refrescar:", error);
+            return;
+        }
+        mostrarRecetas(data);
+    });*/
 
           // Aquí podrías redirigir a otra página si es necesario
         } else {
@@ -207,7 +261,7 @@ $(document).ready(function () {
         console.error('Error en la solicitud AJAX: ', status, error);
         console.log('Respuesta del servidor: ', xhr.responseText); // Añadir esta línea para depurar
         alert(
-          'Error en la solicitud AJAX. Por favor, revise la consola para más detalles.'
+          'Error en la solicitud AJAX en agregar receta. Por favor, revise la consola para más detalles .'
         );
       },
     });
