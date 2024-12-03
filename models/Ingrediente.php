@@ -9,36 +9,33 @@ class Ingrediente {
     private $nombre; 
     private $cantidad; 
 
-    public function __construct($conexion, $id_receta, $nombre, $cantidad) {  // este metodo es el constructor 
+    public function __construct($conexion) {  // este metodo es el constructor 
         $this->conexion = $conexion;
-        $this->id_receta = $id_receta;
-        $this->nombre = $nombre;
-        $this->cantidad = $cantidad;
     }
 
-    public function obtener_id_ingrediente(){
-        return $this->id_ingresiente; 
+
+    public function agregarIngrediente($id_receta, $nombre, $cantidad, $unidad) {
+    // Consulta SQL para insertar el ingrediente en la tabla 'ingredientes', ahora incluyendo la unidad
+    $sql = "INSERT INTO ingredientes (id_receta, ingrediente, cantidad, unidad)
+            VALUES (:id_receta, :ingrediente, :cantidad, :unidad)"; 
+
+    // Preparar la consulta
+    $stmt = $this->conexion->prepare($sql);
+
+    // Vincular los parámetros de la consulta
+    $stmt->bindParam(':id_receta', $id_receta);
+    $stmt->bindParam(':ingrediente', $nombre);
+    $stmt->bindParam(':cantidad', $cantidad);
+    $stmt->bindParam(':unidad', $unidad);  // Vinculamos la unidad
+
+    // Ejecutar la consulta y verificar si fue exitosa
+    if ($stmt->execute()) {
+        return true;  // Retorna true si la inserción fue exitosa
+    } else {
+        return false; // Retorna false si hubo un error
     }
+}
 
-      public function agregarIngrediente($ingrediente) {
-      // Consulta SQL con los nombres correctos de las columnas y valores
-      $sql = "INSERT INTO ingredientes (id_receta, nombre, cantidad)
-              VALUES (:id_receta, :nombre, :cantidad)"; 
-              
-      $stmt = $this->conexion->prepare($sql);
-
-      // Obtener los atributos del objeto Ingrediente pasado como parámetro
-      $stmt->bindParam(':id_receta', $ingrediente->id_receta);
-      $stmt->bindParam(':nombre', $ingrediente->nombre);
-      $stmt->bindParam(':cantidad', $ingrediente->cantidad);
-
-      // Ejecuta la consulta y verifica el resultado
-      if ($stmt->execute()) {
-          return true;  // Retorna true si la inserción fue exitosa
-      } else {
-          return false; // Retorna false si hubo un error
-      }
-  }
 
 }
 ?>
