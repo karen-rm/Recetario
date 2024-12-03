@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
-                <img src="../images/imagen2.jpeg" class="card-img-top" alt="Filete en cama de verduras ">
+                <img src="" class="card-img-top" alt="Filete en cama de verduras ">
                 <div class="card-img-overlay">
                     <p>Healthy</p>
                 </div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
-                <img src="../images/imagen3.jpg" class="card-img-top" alt="Filete en cama de verduras ">
+                <img src="" class="card-img-top" alt="Filete en cama de verduras ">
                 <div class="card-img-overlay">
                     <p>Healthy</p>
                 </div>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
-                <img src="../images/imagen4.jpg" class="card-img-top" alt="Filete en cama de verduras ">
+                <img src="" class="card-img-top" alt="Filete en cama de verduras ">
                 <div class="card-body" style="background-color: #F4A261; color: white;">
                     <h5 class="card-title">Calabaza Asada</h5>
                     <p class="card-text">45 min || 3 servicios</p>
@@ -63,7 +63,7 @@
         <p>Mejora tus habilidades culinarias</p>
         <div class="cardConsejos">
             <div class="cardConsejo">
-                <img src="../images/utensilios.jpeg" class="card-img-top" alt="Filete en cama de verduras ">
+                <img src="" class="card-img-top" alt="Filete en cama de verduras ">
                 <div class="cardText">
                     <h6>Habilidades con cuchillos 101</h6>
                     <p>Maestro del arte del manejo de cuchillos <br>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="cardConsejo" style="background-color: #264653;">
-                <img src="../images/utensilios2.jpeg" class="card-img-top" alt="Filete en cama de verduras ">
+                <img src="" class="card-img-top" alt="Filete en cama de verduras ">
                 <div class="cardText">
                     <h6>Combinacion de sabores</h6>
                     <p>Descubre una gran variedad de <br>
@@ -87,11 +87,11 @@
             <div class="cardReseña">
                 <div class="reseñaTittle">
                     <div class="user">
-                        <img src="../images/user.png" alt="userPicture">
+                        <img src="" alt="userPicture">
                         <p>Elena</p>
                     </div>
                     <div class="estrellas">
-                        <img src="../images/estrellas.png" alt="starsPicture">
+                        <img src="" alt="starsPicture">
                     </div>
                 </div>
                 <div class="cardText">
@@ -102,11 +102,11 @@
             <div class="cardReseña">
                 <div class="reseñaTittle">
                     <div class="user">
-                        <img src="../images/user.png" alt="userPicture">
+                        <img src="" alt="userPicture">
                         <p>Fernando</p>
                     </div>
                     <div class="estrellas">
-                        <img src="../images/estrellas.png" alt="starsPicture">
+                        <img src="" alt="starsPicture">
                     </div>
                 </div>
                 <div class="cardText">
@@ -117,11 +117,11 @@
             <div class="cardReseña">
                 <div class="reseñaTittle">
                     <div class="user">
-                        <img src="../images/user.png" alt="userPicture">
+                        <img src="" alt="userPicture">
                         <p>Gabriela</p>
                     </div>
                     <div class="estrellas">
-                        <img src="../images/estrellas.png" alt="starsPicture">
+                        <img src="" alt="starsPicture">
                     </div>
                 </div>
                 <div class="cardText">

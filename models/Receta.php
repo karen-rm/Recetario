@@ -67,7 +67,51 @@ class Receta {
         }
     }
 
-   
+    public function eliminarReceta($id_receta){
+        $sql = "DELETE FROM recetas WHERE id_receta = :id_receta";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':id_receta', $id_receta, PDO::PARAM_INT);
+        $stmt->execute();
+        return true;
+        // $stmt->rowCount() > 0;
+    }
+
+    public function estaEnFavoritos($id_usuario, $id_receta) {
+        $sql = "SELECT COUNT(*) as total FROM favoritos WHERE id_usuario = :id_usuario AND id_receta = :id_receta";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':id_receta', $id_receta, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] > 0; 
+    }
+
+    public function toggleFavorito($id_usuario, $id_receta) {
+        if ($this->estaEnFavoritos($id_usuario, $id_receta)) {
+            // Eliminar de favoritos
+            $sql = "DELETE FROM favoritos WHERE id_usuario = :id_usuario AND id_receta = :id_receta";
+        } else {
+            // Agregar a favoritos
+            $sql = "INSERT INTO favoritos (id_usuario, id_receta) VALUES (:id_usuario, :id_receta)";
+        }
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':id_receta', $id_receta, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function obtenerFavoritos($id_usuario) {
+        try {
+            $sql = "SELECT id_receta FROM favoritos WHERE id_usuario = :id_usuario";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_COLUMN); 
+        } catch (PDOException $e) {
+            error_log("Error al obtener favoritos: " . $e->getMessage());
+            return [];
+        }
+    }
 
 }
 ?>
