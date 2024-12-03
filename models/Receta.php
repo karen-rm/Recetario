@@ -67,7 +67,20 @@ class Receta {
         }
     }
 
-   
+    public function obtenerRecetasPublicas() {
+        $stmt = $this->conexion->prepare("SELECT * FROM recetas WHERE estado = 'publico' ORDER BY RAND() LIMIT 4");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function PublicarReceta()
+    {
+        $stmt = $this->conexion->prepare("UPDATE recetas SET id_receta= estado=publico");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+
 
 }
 ?>

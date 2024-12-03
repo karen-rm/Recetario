@@ -129,13 +129,46 @@ class RecetaController
     }
 }
 
+    public function obtenerRecetasPublicas() {
+        try {
+            $recetas = $this->recetaModel->obtenerRecetasPublicas();
+
+            // Ajustar las rutas dinámicamente
+            foreach ($recetas as &$receta) {
+                if (strpos($receta['imagen_url'], '../') === 0) {
+                    $receta['imagen_url'] = str_replace('../', '/recetario/', $receta['imagen_url']);
+                }
+            }
+
+            echo json_encode($recetas);
+        } catch (Exception $e) {
+            error_log("Error en obtenerRecetasPublicas: " . $e->getMessage());
+            echo json_encode(["error" => "Error al obtener recetas públicas"]);
+        }
+        exit();
+    }
+
+
+
+
 }
 
 $controller = new RecetaController();
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['action']) && $_GET['action'] === 'obtenerRecetas') {
-        $controller->obtenerRecetasUsuario();
+    if (isset($_GET['action'])) {
+        switch ($_GET['action']) {
+            case 'obtenerRecetas':
+                $controller->obtenerRecetasUsuario();
+                break;
+            case 'recetasPublicas':
+                $controller->obtenerRecetasPublicas();
+                break;
+            default:
+                echo json_encode(['error' => 'Acción no reconocida']);
+                break;
+        }
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_GET['action'])) {
@@ -144,7 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $controller->agregarReceta();
                 break;
             case 'agregarImagen':
-
                 $controller->agregarImagen();
                 break;
             default:

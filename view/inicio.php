@@ -15,47 +15,13 @@
             <button type="button" class="btn" id="busca">Busca</button>
         </div>
     </section>
+
     <section class="recetasDestacadas">
-        <h2 style="color: #264653;">Recetas destacadas</h2>
+         <h2 style="color: #264653;">Recetas destacadas</h2>
         <p>Prueba nuestras recetas de moda</p>
+
         <div class="recetasCards">
-            <div class="card" style="width: 18rem;">
-                <img src="./images/comida-1.jpg" class="card-img-top" alt="Filete en cama de verduras ">
-                <div class="card-img-overlay">
-                    <p>Healthy</p>
-                </div>
-                <div class="card-body" style="background-color: #264653; color: white;">
-                    <h5 class="card-title">Ribeye en cama de verduras</h5>
-                    <p class="card-text">50 min || 4 servicios</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="../images/imagen2.jpeg" class="card-img-top" alt="Filete en cama de verduras ">
-                <div class="card-img-overlay">
-                    <p>Healthy</p>
-                </div>
-                <div class="card-body" style="background-color: #F4A261; color: white;">
-                    <h5 class="card-title">Ensalada de Pollo</h5>
-                    <p class="card-text">20 min || 2 servicios</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="../images/imagen3.jpg" class="card-img-top" alt="Filete en cama de verduras ">
-                <div class="card-img-overlay">
-                    <p>Healthy</p>
-                </div>
-                <div class="card-body" style="background-color: #264653; color: white;">
-                    <h5 class="card-title">Huevos revueltos con verdura</h5>
-                    <p class="card-text">50 min || 4 servicios</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="../images/imagen4.jpg" class="card-img-top" alt="Filete en cama de verduras ">
-                <div class="card-body" style="background-color: #F4A261; color: white;">
-                    <h5 class="card-title">Calabaza Asada</h5>
-                    <p class="card-text">45 min || 3 servicios</p>
-                </div>
-            </div>
+            <!-- Las recetas se cargarán aquí dinámicamente -->
         </div>
     </section>
     <section class="consejos">
@@ -139,3 +105,5 @@
         </ul>
     </footer>
 </div>
+
+<script src="./js/ObtenerRecetasPublicasHome.js"></script>
