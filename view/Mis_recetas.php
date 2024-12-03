@@ -40,23 +40,23 @@
               </div>
               <div class="col">
                 <select class="form-control" name="select_medida" required>
-                  <option value="valor1" selected> unidad </option>
-                  <option value="valor16"> cucharada </option>
-                  <option value="valor2"> cucharadita </option>
-                  <option value="valor3"> cuarto de cucharadita </option>
-                  <option value="valor4"> cuarto </option>
-                  <option value="valor5"> gramo </option>
-                  <option value="valor6"> galón </option>
-                  <option value="valor7"> libra </option>
-                  <option value="valor8"> litro </option>
-                  <option value="valor9"> miligramo </option>
-                  <option value="valor10"> mililitro </option>
-                  <option value="valor11"> onza </option>
-                  <option value="valor12"> pieza </option>
-                  <option value="valor13"> piezas </option>
-                  <option value="valor14"> pizca </option>
-                  <option value="valor15"> taza </option>
-                  <option value="valor17"> unidades </option>
+                  <option value="unidad" selected> unidad </option>
+                  <option value="cucharada"> cucharada </option>
+                  <option value="cucharadita"> cucharadita </option>
+                  <option value="media cucharada"> media cucharada</option>
+                  <option value="cuarto"> cuarto </option>
+                  <option value="kilo"> kilo </option>
+                  <option value="medio"> medio </option>
+                  <option value="lata"> lata </option>
+                  <option value="litro"> litro </option>
+                  <option value="paquete"> paquete </option>
+                  <option value="mililitro"> mililitro </option>
+                  <option value="botella"> botella </option>
+                  <option value="pieza"> pieza </option>
+                  <option value="piezas"> piezas </option>
+                  <option value="pizca"> pizca </option>
+                  <option value="taza"> taza </option>
+                  <option value="unidades"> unidades </option>
                 </select>
               </div>
               <div class="col-auto">
