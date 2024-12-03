@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 function loadNavbar() {
   // Verificar si el usuario está autenticado
-  console.log("entra");
+  // console.log("entra");
   
   // Cargar el navbar de inicio de sesión y registro
   $('#navbar-container').load('./components/navbar.php', function () {
@@ -73,7 +73,7 @@ function cargarContenido(opcion) {
         stylesheets = ['./css/favoritos.css'];
       }
 
-      console.log('Cargando CSS:', stylesheets);
+      // console.log('Cargando CSS:', stylesheets);
 
       // Agregar cada hoja de estilo al head
       stylesheets.forEach(function (styleSheet) {

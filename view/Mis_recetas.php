@@ -3,7 +3,63 @@
   <div id="contenedor-recetas" class="recetas-container"></div>
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
+    <!-- Modal para aceptar favoritos la receta -->
+  <div class="modal fade" id="aceptarFavoritos" tabindex="-1" aria-labelledby="confirmModalFavoritosLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Notificación</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <p>Receta agregada a favoritos.</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+          </div>
+      </div>
+  </div>
+  </div>
 
+
+  <!-- Modal para agregar a favoritos la receta -->
+  <div class="modal fade" id="confirmModalFavoritos" tabindex="-1" aria-labelledby="confirmModalFavoritosLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalFavoritosLabel">Eliminar de Favoritos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas eliminar esta receta de tus favoritos?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" id="confirmDeleteFavoritoBtn" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  
+  <!-- Modal para eliminar receta -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Confirmar eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Estás seguro de que deseas eliminar la receta <span id="modalRecetaTitulo"></span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- Botón para agregar recta -->
@@ -106,7 +162,8 @@
     </div>
   </div>
 
-  <script src="../Recetario/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="../Recetario/bootstrap/js/bootstrap.bundle.min.js"></script> -->
   <script src="../Recetario/js/agregarReceta.js"></script>
   <script src="../Recetario/js/Mis_Recetas.js"></script>
 

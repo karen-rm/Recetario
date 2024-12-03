@@ -128,7 +128,54 @@ class RecetaController
         }
     }
 }
+    public function eliminarReceta(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jsonData = file_get_contents("php://input");
+            $data = json_decode($jsonData, true);
 
+            $idReceta = $data['id_receta'] ?? null;
+
+            if ($idReceta) {
+                $resultado = $this->recetaModel->eliminarReceta($idReceta);
+                if ($resultado) {
+                    echo json_encode(['success' => true, 'message' => 'Se eliminó la receta correctamente.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Error al eliminar la receta.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'ID de receta no proporcionado.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
+        }
+        exit();
+    }
+
+    public function toggleFavorito() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jsonData = file_get_contents("php://input");
+            $data = json_decode($jsonData, true);
+
+            $id_receta = $data['id_receta'] ?? null;
+            $id_usuario = $this->usuarioModel->obtenerIdUsuario();
+            if ($id_receta && $id_usuario) {
+                $success = $this->recetaModel->toggleFavorito($id_usuario, $id_receta);
+                echo json_encode(['success' => $success]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Datos incompletos.']);
+            }
+        }
+        exit;
+    }
+
+    public function obtenerFavoritos() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $id_usuario = $this->usuarioModel->obtenerIdUsuario();
+            $favoritos = $this->recetaModel->obtenerFavoritos($id_usuario);
+            echo json_encode(['favoritos' => $favoritos]);
+        }
+        exit;
+    }
     public function obtenerRecetasPublicas() {
         try {
             $recetas = $this->recetaModel->obtenerRecetasPublicas();
@@ -147,20 +194,17 @@ class RecetaController
         }
         exit();
     }
-
-
-
-
 }
 
 $controller = new RecetaController();
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'obtenerRecetas':
                 $controller->obtenerRecetasUsuario();
+                break;
+            case 'obtenerFavoritos':
+                $controller->obtenerFavoritos();
                 break;
             case 'recetasPublicas':
                 $controller->obtenerRecetasPublicas();
@@ -178,6 +222,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 break;
             case 'agregarImagen':
                 $controller->agregarImagen();
+                break;
+            case 'eliminarReceta' :
+                $controller->eliminarReceta();
+                break;
+            case 'toggleFavorito' :
+                $controller->toggleFavorito();
                 break;
             default:
                 echo json_encode(['error' => 'Acción no reconocida']);
