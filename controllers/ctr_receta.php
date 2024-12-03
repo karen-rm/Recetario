@@ -209,6 +209,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             case 'recetasPublicas':
                 $controller->obtenerRecetasPublicas();
                 break;
+            case 'recetasPublicasSesion':
+                $controller->obtenerRecetasPublicas();
             default:
                 echo json_encode(['error' => 'Acción no reconocida']);
                 break;
