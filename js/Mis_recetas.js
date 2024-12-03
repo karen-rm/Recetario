@@ -1,4 +1,4 @@
-import { mostrarRecetas, obtenerRecetas } from './helpers.js';
+import { configurarBotonEditar, mostrarRecetas, obtenerRecetas } from './helpers.js';
 
 $(document).ready(function() {
     // Reutiliza la función global
@@ -9,7 +9,7 @@ $(document).ready(function() {
             return;
         }
         mostrarRecetas(data);
+        configurarBotonEditar(); 
     });
 
-    
 });

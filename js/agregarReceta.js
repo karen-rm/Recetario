@@ -1,6 +1,7 @@
 import { mostrarRecetas, obtenerRecetas } from './helpers.js';
 
 $(document).ready(function () {
+  
   const modal = document.getElementById('contenedor_form_agregar');
 
   // Alternar visibilidad del formulario de agregar receta
@@ -15,10 +16,10 @@ $(document).ready(function () {
     document.getElementById('btn_agregar').style.display = 'flex';
   });
 
-  // Cerrar el modal al hacer clic fuera de él (en el área borrosa)
+  // Cerrar el modal al hacer clic fuera de él 
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
-      modal.style.display = 'none'; // Ocultar el modal
+      modal.style.display = 'none'; 
       document.getElementById('btn_agregar').style.display = 'flex';
     }
   });
