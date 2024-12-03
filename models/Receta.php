@@ -67,6 +67,20 @@ class Receta
         }
     }
 
+    public function actualizarReceta($id_receta, $titulo, $instrucciones, $tiempo) {
+        $sql = "UPDATE recetas SET titulo = :titulo, instrucciones = :instrucciones, 
+                tiempo_preparacion = :tiempo_preparacion WHERE id_receta = :id_receta";
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->bindParam(':id_receta', $id_receta, PDO::PARAM_INT);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':instrucciones', $instrucciones);
+        $stmt->bindParam(':tiempo_preparacion', $tiempo);
+
+        return $stmt->execute(); // Retorna true si la actualización fue exitosa
+    }
+
+
     public function agregarImagen($id_receta, $ruta_imagen)
     {
         echo 'entro a agregar img';

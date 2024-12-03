@@ -51,7 +51,7 @@ class RecetaController
     {
         if (isset($_POST['id_receta'])) {
             $id_receta = $_POST['id_receta'];
-            
+
             $receta = $this->recetaModel->obtenerRecetaPorId($id_receta);
 
             if ($receta) {
@@ -63,7 +63,6 @@ class RecetaController
             echo json_encode(['success' => false, 'message' => 'ID de receta no proporcionado']);
         }
     }
-
 
     public function agregarReceta()
     {
@@ -104,6 +103,32 @@ class RecetaController
             }
         }
     }
+
+    /*public function editarReceta()
+    {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+
+        if (isset($data['id_receta'], $data['titulo'], $data['instrucciones'], $data['tiempo_preparacion'], $data['estado'])) {
+            $modelo = new RecetaModelo();
+            $resultado = $modelo->actualizarReceta(
+                $data['id_receta'],
+                $data['titulo'],
+                $data['instrucciones'],
+                $data['tiempo_preparacion'],
+                $data['estado']
+            );
+
+            if ($resultado) {
+                echo json_encode(['success' => true, 'message' => 'Receta actualizada correctamente']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al actualizar la receta']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
+        }
+    }*/
+    
 
 
     public function agregarImagen()

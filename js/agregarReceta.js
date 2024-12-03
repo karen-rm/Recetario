@@ -187,7 +187,7 @@ $(document).ready(function () {
 
     // Enviar la solicitud AJAX
     $.ajax({
-        url: '../Recetario/controllers/ctr_ingrediente.php',
+        url: '../Recetario/controllers/ctr_ingrediente.php?action=agregarIngrediente',
         type: 'POST',
         data: jsonData,               // Enviar los datos como JSON
         contentType: 'application/json', // Indicar que el contenido es JSON

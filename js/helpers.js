@@ -56,6 +56,7 @@ export function configurarBotonEditar() {
     console.log(`Botón Editar presionado para la receta con ID: ${recetaId}`);
     //mostrarFormularioEditar(); 
     recuperarRecetaInfo(recetaId); 
+   // cargarIngredientes(recetaId); 
   });
 }
 
