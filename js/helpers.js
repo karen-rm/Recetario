@@ -1,6 +1,7 @@
 import { recuperarRecetaInfo } from './editarReceta.js';
 
 export function obtenerRecetas(callback) {
+  console.log('Obteniendo recetas'); 
   $.ajax({
     url: '/Recetario/controllers/ctr_receta.php?action=obtenerRecetas',
     method: 'GET',
@@ -22,17 +23,20 @@ export function mostrarRecetas(recetas) {
   recetas.forEach((receta) => {
     const tarjeta = `
             <div class="tarjeta">
-                <img src="img_u/${receta.imagen_url}" alt="${receta.titulo}">
-                <h3>${receta.titulo}</h3>
-                <div class="opciones">
-                    <span class="tres-puntos">...</span>
-                    <div class="menu-opciones">
-                        <button class="editar" data-id="${receta.id_receta}">Editar</button>
-                        <button class="eliminar" data-id="${receta.id_receta}">Eliminar</button>
-                        <button class="publicar" data-id="${receta.id_receta}">Publicar</button>
+                    <img src="img_u/${receta.imagen_url}" alt="${receta.titulo}">
+                    <i class="bi bi-heart-fill" data-id="${receta.id_receta}"></i>
+                    <div class="cardBody">
+                        <h3>${receta.titulo}</h3>
+                        <div class="opciones">
+                            <span class="tres-puntos">...</span>
+                            <div class="menu-opciones">
+                                <button class="editar" data-id="${receta.id_receta}">Editar</button>
+                                <button class="eliminar" data-id="${receta.id_receta}" data-titulo="${receta.titulo}">Eliminar</button>
+                                <button class="publicar">Publicar</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>
         `;
     contenedor.append(tarjeta);
   });
