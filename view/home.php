@@ -30,19 +30,8 @@
 
 <section class="container mt-5">
   <h2>Destacado</h2>
-  <div class="d-flex justify-content-between">
-    <div class="recetas-destacadas">
-      <img src="" alt="">
-      <h4></h4>
+    <div class="recetasCards">
+        <!-- Las recetas se cargarán aquí dinámicamente -->
     </div>
-    <div class="recetas-destacadas">
-      <img src="" alt="">
-      <h4></h4>
-    </div>
-    <div class="recetas-destacadas">
-      <img src="" alt="">
-      <h4></h4>
-    </div>
-  </div>
-
 </section>
+<script src="./js/ObtenerRecetasPublicasSesion.js"></script>

@@ -3,7 +3,63 @@
   <div id="contenedor-recetas" class="recetas-container"></div>
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
+    <!-- Modal para aceptar favoritos la receta -->
+  <div class="modal fade" id="aceptarFavoritos" tabindex="-1" aria-labelledby="confirmModalFavoritosLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Notificación</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <p>Receta agregada a favoritos.</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+          </div>
+      </div>
+  </div>
+  </div>
 
+
+  <!-- Modal para agregar a favoritos la receta -->
+  <div class="modal fade" id="confirmModalFavoritos" tabindex="-1" aria-labelledby="confirmModalFavoritosLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalFavoritosLabel">Eliminar de Favoritos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas eliminar esta receta de tus favoritos?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" id="confirmDeleteFavoritoBtn" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  
+  <!-- Modal para eliminar receta -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Confirmar eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Estás seguro de que deseas eliminar la receta <span id="modalRecetaTitulo"></span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- Botón para agregar recta -->
@@ -40,23 +96,23 @@
               </div>
               <div class="col">
                 <select class="form-control" name="select_medida" required>
-                  <option value="unidad" selected> unidad </option>
-                  <option value="cucharada"> cucharada </option>
-                  <option value="cucharadita"> cucharadita </option>
-                  <option value="media cucharada"> media cucharada</option>
-                  <option value="cuarto"> cuarto </option>
-                  <option value="kilo"> kilo </option>
-                  <option value="medio"> medio </option>
-                  <option value="lata"> lata </option>
-                  <option value="litro"> litro </option>
-                  <option value="paquete"> paquete </option>
-                  <option value="mililitro"> mililitro </option>
-                  <option value="botella"> botella </option>
-                  <option value="pieza"> pieza </option>
-                  <option value="piezas"> piezas </option>
-                  <option value="pizca"> pizca </option>
-                  <option value="taza"> taza </option>
-                  <option value="unidades"> unidades </option>
+                  <option value="valor1" selected> unidad </option>
+                  <option value="valor16"> cucharada </option>
+                  <option value="valor2"> cucharadita </option>
+                  <option value="valor3"> cuarto de cucharadita </option>
+                  <option value="valor4"> cuarto </option>
+                  <option value="valor5"> gramo </option>
+                  <option value="valor6"> galón </option>
+                  <option value="valor7"> libra </option>
+                  <option value="valor8"> litro </option>
+                  <option value="valor9"> miligramo </option>
+                  <option value="valor10"> mililitro </option>
+                  <option value="valor11"> onza </option>
+                  <option value="valor12"> pieza </option>
+                  <option value="valor13"> piezas </option>
+                  <option value="valor14"> pizca </option>
+                  <option value="valor15"> taza </option>
+                  <option value="valor17"> unidades </option>
                 </select>
               </div>
               <div class="col-auto">
@@ -108,9 +164,10 @@
     </div>
   </div>
 
-  <script src="../Recetario/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script type="module" src="../Recetario/js/agregarReceta.js"></script>
-  <script type="module" src="../Recetario/js/Mis_Recetas.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="../Recetario/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+  <script src="../Recetario/js/agregarReceta.js"></script>
+  <script src="../Recetario/js/Mis_Recetas.js"></script>
 
 
 
