@@ -1,3 +1,4 @@
+
 $(document).ready(function() { // esta línea asegura que el código dentro de la función se ejecute una vez que el documento HTML haya terminado de cargarse completamente
     // Llamada AJAX para obtener las recetas
     $.ajax({
@@ -15,7 +16,7 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
 
     function mostrarRecetas(recetas) {
         const contenedor = $('#contenedor-recetas');
-        contenedor.empty();  
+        contenedor.empty();
         recetas.forEach(receta => {
             const tarjeta = `
                 <div class="tarjeta">
@@ -114,7 +115,7 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
             }
         });
     }
-    
+
     // Función para alternar el estado de favoritos
     function toggleFavorito(id_receta, callback) {
         $.ajax({
@@ -137,7 +138,7 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
 
     function eliminarReceta(idReceta) {
         $.ajax({
-            url: '/Recetario/controllers/ctr_receta.php?action=eliminarReceta', 
+            url: '/Recetario/controllers/ctr_receta.php?action=eliminarReceta',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ id_receta: idReceta }),
