@@ -8,12 +8,21 @@ $(document).ready(function () {
   $('#btn_agregar').on('click', function () {
     console.log('Botón presionado');
     document.getElementById('contenedor_form_agregar').style.display = 'flex';
+    document.getElementById('insertar_receta').textContent = 'Guardar receta';
+    document.querySelector('h2').textContent = 'Agregar receta';
     document.getElementById('btn_agregar').style.display = 'none';
+    $('#img_titulo').show(); 
+    $('#imagen').show();
+    limpiarIngredientes();
+    
   });
   // Ocultar el formulario al hacer clic en el "tache" (cerrar)
   $('.cerrar-btn').on('click', function () {
     document.getElementById('contenedor_form_agregar').style.display = 'none';
     document.getElementById('btn_agregar').style.display = 'flex';
+    $('#formReceta')[0].reset();
+    $('#contenedor_img').empty();
+    limpiarIngredientes();
   });
 
   // Cerrar el modal al hacer clic fuera de él 
@@ -21,6 +30,9 @@ $(document).ready(function () {
     if (e.target === modal) {
       modal.style.display = 'none'; 
       document.getElementById('btn_agregar').style.display = 'flex';
+      $('#formReceta')[0].reset();
+      $('#contenedor_img').empty();
+      limpiarIngredientes();
     }
   });
 
@@ -267,4 +279,61 @@ $(document).ready(function () {
       },
     });
   });
+
+  function limpiarIngredientes(){
+    const ingredientesContainer = document.getElementById('ingredientes-container');
+    ingredientesContainer.innerHTML = '';
+
+    // Agregar el input inicial de ingredientes
+  const ingredienteRow = document.createElement('div');
+  ingredienteRow.classList.add('row', 'ingrediente');
+
+  // Crear el campo de ingrediente
+  const colIngrediente = document.createElement('div');
+  colIngrediente.classList.add('col');
+  colIngrediente.innerHTML = `<input type="text" class="form-control" name="ingrediente" placeholder="Ingrediente" pattern="[A-Za-zÀ-ÿ\\s]+" title="Solo se permiten letras" required>`;
+
+  // Crear el campo de cantidad
+  const colCantidad = document.createElement('div');
+  colCantidad.classList.add('col');
+  colCantidad.innerHTML = `<input type="number" class="form-control" name="cantidad" placeholder="Cantidad" pattern="\\d+" title="Solo se permiten números" required>`;
+
+  // Crear el select de unidad
+  const colSelect = document.createElement('div');
+  colSelect.classList.add('col');
+  colSelect.innerHTML = `
+    <select class="form-control" name="select_medida" required>
+      <option value="unidad" selected>unidad</option>
+      <option value="cucharada">cucharada</option>
+      <option value="cucharadita">cucharadita</option>
+      <option value="media cucharada">media cucharada</option>
+      <option value="cuarto">cuarto</option>
+      <option value="kilo">kilo</option>
+      <option value="medio">medio</option>
+      <option value="lata">lata</option>
+      <option value="litro">litro</option>
+      <option value="paquete">paquete</option>
+      <option value="mililitro">mililitro</option>
+      <option value="botella">botella</option>
+      <option value="pieza">pieza</option>
+      <option value="piezas">piezas</option>
+      <option value="pizca">pizca</option>
+      <option value="taza">taza</option>
+      <option value="unidades">unidades</option>
+    </select>`;
+
+  // Crear el botón de eliminar (deshabilitado)
+  const colBoton = document.createElement('div');
+  colBoton.classList.add('col-auto');
+  colBoton.innerHTML = `<button type="button" class="btn btn-danger eliminar-ingrediente" disabled><i class="bi bi-x"></i></button>`;
+
+  // Agregar las columnas a la fila
+  ingredienteRow.appendChild(colIngrediente);
+  ingredienteRow.appendChild(colCantidad);
+  ingredienteRow.appendChild(colSelect);
+  ingredienteRow.appendChild(colBoton);
+
+  // Agregar la fila al contenedor
+  ingredientesContainer.appendChild(ingredienteRow);
+  }
 });

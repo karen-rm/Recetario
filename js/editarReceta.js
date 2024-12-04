@@ -9,7 +9,6 @@ export function recuperarRecetaInfo(recetaId) {
       if (response.success) {
         const receta = response.receta;
 
-        // Llenar el formulario con los datos de la receta
         $('#titulo').val(receta.titulo);
         $('#instrucciones').val(receta.instrucciones);
         $('#tiempo').val(receta.tiempo_preparacion);
@@ -19,7 +18,7 @@ export function recuperarRecetaInfo(recetaId) {
 
         // Mostrar el nombre de la imagen si existe y agregar el párrafo y el botón
         if (receta.imagen_url) {
-          // Agregar y mostrar el párrafo con la ruta de la imagen
+         
           $('#contenedor_img').append(`<p id="ruta-imagen">Imagen seleccionada: ${receta.imagen_url}</p>`);
 
           // Crear y agregar el botón para cambiar la imagen
@@ -30,14 +29,19 @@ export function recuperarRecetaInfo(recetaId) {
           `;
           $('#contenedor_img').append(botonCambiarImagen);
 
+          console.log($('#imagen').length); // Verifica si el elemento existe
+
+
           // Mostrar el input de imagen solo si se hace clic en el botón
           $('#btn_cambiarImg').click(function() {
+            $('#img_titulo').show(); 
             $('#imagen').show(); // Mostrar el input de imagen
             $('#ruta-imagen').hide(); // Ocultar el párrafo con la ruta de la imagen
             $(this).hide(); // Ocultar el botón después de hacer clic
           });
 
           // Ocultar el input de imagen inicialmente
+          $('#img_titulo').hide(); 
           $('#imagen').hide();
         } else {
           // Si no hay imagen, solo mostrar el input y ocultar el párrafo
