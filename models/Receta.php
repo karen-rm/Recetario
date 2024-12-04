@@ -81,6 +81,7 @@ class Receta
     }
 
 
+
     public function agregarImagen($id_receta, $ruta_imagen)
     {
         echo 'entro a agregar img';
