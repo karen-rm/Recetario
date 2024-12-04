@@ -54,10 +54,20 @@ export function configurarBotonEditar() {
   $('#contenedor-recetas').on('click', '.editar', function () {
     const recetaId = $(this).data('id'); // Obtén el ID de la receta
     console.log(`Botón Editar presionado para la receta con ID: ${recetaId}`);
-    //mostrarFormularioEditar(); 
     recuperarRecetaInfo(recetaId); 
-   // cargarIngredientes(recetaId); 
   });
 }
+
+
+export const estadoReceta = {
+  isEditing: false,
+  setEditing(isEdit) {
+    this.isEditing = isEdit;
+  },
+  getEditing() {
+    return this.isEditing;
+  },
+};
+
 
 

@@ -1,7 +1,6 @@
-import { mostrarRecetas, obtenerRecetas } from './helpers.js';
+import { estadoReceta, mostrarRecetas, obtenerRecetas } from './helpers.js';
 
 $(document).ready(function () {
-  
   const modal = document.getElementById('contenedor_form_agregar');
 
   // Alternar visibilidad del formulario de agregar receta
@@ -11,10 +10,10 @@ $(document).ready(function () {
     document.getElementById('insertar_receta').textContent = 'Guardar receta';
     document.querySelector('h2').textContent = 'Agregar receta';
     document.getElementById('btn_agregar').style.display = 'none';
-    $('#img_titulo').show(); 
+    $('#img_titulo').show();
     $('#imagen').show();
     limpiarIngredientes();
-    
+    estadoReceta.setEditing(false); // Reinicia el estado
   });
   // Ocultar el formulario al hacer clic en el "tache" (cerrar)
   $('.cerrar-btn').on('click', function () {
@@ -23,16 +22,18 @@ $(document).ready(function () {
     $('#formReceta')[0].reset();
     $('#contenedor_img').empty();
     limpiarIngredientes();
+    estadoReceta.setEditing(false); // Reinicia el estado
   });
 
-  // Cerrar el modal al hacer clic fuera de él 
+  // Cerrar el modal al hacer clic fuera de él
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
-      modal.style.display = 'none'; 
+      modal.style.display = 'none';
       document.getElementById('btn_agregar').style.display = 'flex';
       $('#formReceta')[0].reset();
       $('#contenedor_img').empty();
       limpiarIngredientes();
+      estadoReceta.setEditing(false); // Reinicia el estado
     }
   });
 
@@ -107,7 +108,6 @@ $(document).ready(function () {
   //Función para enviar los datos al ctrlReceta para agegar receta con sus ingredientes
   $('#formReceta').on('submit', function (event) {
     event.preventDefault();
-    //console.log('Obteniendo datos ... ');
 
     function enviarImagen(idreceta) {
       //console.log('enviando img');
@@ -135,25 +135,26 @@ $(document).ready(function () {
           console.log('Imagen subida con éxito:', response);
           alert('Imagen subida correctamente.');
 
-           // Actualizar la lista de recetas
-            obtenerRecetas((error, recetas) => {
-                if (error) {
-                    console.error("Error al actualizar recetas:", error);
-                    return;
-                }
+          // Actualizar la lista de recetas
+          obtenerRecetas((error, recetas) => {
+            if (error) {
+              console.error('Error al actualizar recetas:', error);
+              return;
+            }
 
-                // Vuelve a mostrar las recetas actualizadas
-                mostrarRecetas(recetas);
+            // Vuelve a mostrar las recetas actualizadas
+            mostrarRecetas(recetas);
 
-                // Opcional: Forzar la recarga de la imagen recién subida
-                const recetaImagen = document.querySelector(
-                    `img[src="img_u/${response.imagen_url}"]`
-                );
-                if (recetaImagen) {
-                    recetaImagen.src = `img_u/${response.imagen_url}?t=${new Date().getTime()}`;
-                }
-            });
-
+            // Opcional: Forzar la recarga de la imagen recién subida
+            const recetaImagen = document.querySelector(
+              `img[src="img_u/${response.imagen_url}"]`
+            );
+            if (recetaImagen) {
+              recetaImagen.src = `img_u/${
+                response.imagen_url
+              }?t=${new Date().getTime()}`;
+            }
+          });
         },
         error: function (xhr, status, error) {
           console.error('Error en la solicitud AJAX: ', status, error);
@@ -167,55 +168,58 @@ $(document).ready(function () {
 
     // Función para obtener los ingredientes
     function guardarIngredientes(id_receta) {
-    const ingredientes = []; // Arreglo para almacenar los ingredientes
+      const ingredientes = []; // Arreglo para almacenar los ingredientes
 
-    // Seleccionamos todos los contenedores de ingredientes
-    const ingredientesRows = document.querySelectorAll('#ingredientes-container .ingrediente');
+      // Seleccionamos todos los contenedores de ingredientes
+      const ingredientesRows = document.querySelectorAll(
+        '#ingredientes-container .ingrediente'
+      );
 
-    // Recorremos cada fila de ingredientes
-    ingredientesRows.forEach((row) => {
-        const ingrediente = row.querySelector('[name="ingrediente"]').value.trim();
+      // Recorremos cada fila de ingredientes
+      ingredientesRows.forEach((row) => {
+        const ingrediente = row
+          .querySelector('[name="ingrediente"]')
+          .value.trim();
         const cantidad = row.querySelector('[name="cantidad"]').value.trim();
         const medida = row.querySelector('[name="select_medida"]');
         const medidaValor = medida.value.trim(); // Obtenemos el valor seleccionado del select
 
         // Validamos si los campos tienen datos antes de agregar
         if (ingrediente && cantidad && medidaValor) {
-            ingredientes.push({ ingrediente, cantidad, medidaValor });
+          ingredientes.push({ ingrediente, cantidad, medidaValor });
         }
-    });
+      });
 
-    //console.log('Ingredientes:', ingredientes);
+      //console.log('Ingredientes:', ingredientes);
 
-    // Crear el objeto que incluye el id_receta
-    const dataToSend = {
-        id_receta,  // Incluimos el id_receta
-        ingredientes // Incluimos el arreglo de ingredientes
-    };
+      // Crear el objeto que incluye el id_receta
+      const dataToSend = {
+        id_receta, // Incluimos el id_receta
+        ingredientes, // Incluimos el arreglo de ingredientes
+      };
 
-    // Convertir el objeto a JSON
-    const jsonData = JSON.stringify(dataToSend);
-    
+      // Convertir el objeto a JSON
+      const jsonData = JSON.stringify(dataToSend);
 
-    // Enviar la solicitud AJAX
-    $.ajax({
+      // Enviar la solicitud AJAX
+      $.ajax({
         url: '../Recetario/controllers/ctr_ingrediente.php?action=agregarIngrediente',
         type: 'POST',
-        data: jsonData,               // Enviar los datos como JSON
+        data: jsonData, // Enviar los datos como JSON
         contentType: 'application/json', // Indicar que el contenido es JSON
-        dataType: 'json',             // Esperar respuesta JSON
+        dataType: 'json', // Esperar respuesta JSON
         success: function (response) {
-            console.log('Respuesta del servidor:', response);
+          console.log('Respuesta del servidor:', response);
         },
         error: function (xhr, status, error) {
-            console.error('Error en la solicitud AJAX:', status, error);
-            console.log('Respuesta del servidor:', xhr.responseText); // Depurar la respuesta
-            alert('Error en la solicitud AJAX ingredientes. Por favor, revise la consola para más detalles.');
-        }
-    });
-}
-
-
+          console.error('Error en la solicitud AJAX:', status, error);
+          console.log('Respuesta del servidor:', xhr.responseText); // Depurar la respuesta
+          alert(
+            'Error en la solicitud AJAX ingredientes. Por favor, revise la consola para más detalles.'
+          );
+        },
+      });
+    }
 
     // Crear un objeto con los datos
     const postData = {
@@ -228,8 +232,13 @@ $(document).ready(function () {
     const jsonData = JSON.stringify(postData);
     //console.log('Datos enviados en JSON:', jsonData);
 
+    const isEditing = estadoReceta.getEditing();
+    const action = isEditing ? 'actualizarReceta' : 'agregarReceta';
+    const url = `../Recetario/controllers/ctr_receta.php?action=${action}`;
+
     $.ajax({
-      url: '../Recetario/controllers/ctr_receta.php?action=agregarReceta',
+      //url: '../Recetario/controllers/ctr_receta.php?action=agregarReceta',
+      url: url,
       type: 'POST',
       data: jsonData,
       contentType: 'application/json', // Importante para enviar el FormData correctamente
@@ -241,31 +250,27 @@ $(document).ready(function () {
           alert(response.message); // Mostrar mensaje de éxito
 
           // Recupera el id_receta de la respuesta y guardarlo en una variable
-          var idReceta = response.id_receta; // Aquí tienes el id de la receta
+          var idReceta = response.id_receta;
 
-          //console.log('ID de la receta:', idReceta); // Esto es solo para depuración
-
-          // Ahora puedes utilizar el idReceta para otras funciones
-          guardarIngredientes(idReceta);
-          enviarImagen(idReceta); // Pasa el idReceta a la función enviarImagen
-          
+          if (!estadoReceta.getEditing()) {
+            // Si no es edición, es agregar una nueva receta
+             // Asegúrate de que esta función obtenga correctamente el ID
+            guardarIngredientes(idReceta);
+            enviarImagen(idReceta);
+          } else {
+            // Si es edición, probablemente ya tienes un ID y no necesitas subir una nueva imagen o ingredientes
+            console.log(
+              'Modo edición: No se guarda la imagen ni los ingredientes nuevamente.'
+            );
+          }
 
           // Limpiar el formulario
-          $('#formReceta')[0].reset(); // Limpiar el formulario usando jQuery
-
+          $('#formReceta')[0].reset();
+          limpiarIngredientes();
           document.getElementById('contenedor_form_agregar').style.display =
             'none';
           document.getElementById('btn_agregar').style.display = 'flex';
-
-         /* obtenerRecetas((error, data) => {
-        if (error) {
-            console.error("Error al refrescar:", error);
-            return;
-        }
-        mostrarRecetas(data);
-    });*/
-
-          // Aquí podrías redirigir a otra página si es necesario
+          estadoReceta.setEditing(false); // Reinicia el estado
         } else {
           alert(response.message); // Mostrar mensaje de error
         }
@@ -280,28 +285,30 @@ $(document).ready(function () {
     });
   });
 
-  function limpiarIngredientes(){
-    const ingredientesContainer = document.getElementById('ingredientes-container');
+  function limpiarIngredientes() {
+    const ingredientesContainer = document.getElementById(
+      'ingredientes-container'
+    );
     ingredientesContainer.innerHTML = '';
 
     // Agregar el input inicial de ingredientes
-  const ingredienteRow = document.createElement('div');
-  ingredienteRow.classList.add('row', 'ingrediente');
+    const ingredienteRow = document.createElement('div');
+    ingredienteRow.classList.add('row', 'ingrediente');
 
-  // Crear el campo de ingrediente
-  const colIngrediente = document.createElement('div');
-  colIngrediente.classList.add('col');
-  colIngrediente.innerHTML = `<input type="text" class="form-control" name="ingrediente" placeholder="Ingrediente" pattern="[A-Za-zÀ-ÿ\\s]+" title="Solo se permiten letras" required>`;
+    // Crear el campo de ingrediente
+    const colIngrediente = document.createElement('div');
+    colIngrediente.classList.add('col');
+    colIngrediente.innerHTML = `<input type="text" class="form-control" name="ingrediente" placeholder="Ingrediente" pattern="[A-Za-zÀ-ÿ\\s]+" title="Solo se permiten letras" required>`;
 
-  // Crear el campo de cantidad
-  const colCantidad = document.createElement('div');
-  colCantidad.classList.add('col');
-  colCantidad.innerHTML = `<input type="number" class="form-control" name="cantidad" placeholder="Cantidad" pattern="\\d+" title="Solo se permiten números" required>`;
+    // Crear el campo de cantidad
+    const colCantidad = document.createElement('div');
+    colCantidad.classList.add('col');
+    colCantidad.innerHTML = `<input type="number" class="form-control" name="cantidad" placeholder="Cantidad" pattern="\\d+" title="Solo se permiten números" required>`;
 
-  // Crear el select de unidad
-  const colSelect = document.createElement('div');
-  colSelect.classList.add('col');
-  colSelect.innerHTML = `
+    // Crear el select de unidad
+    const colSelect = document.createElement('div');
+    colSelect.classList.add('col');
+    colSelect.innerHTML = `
     <select class="form-control" name="select_medida" required>
       <option value="unidad" selected>unidad</option>
       <option value="cucharada">cucharada</option>
@@ -322,18 +329,18 @@ $(document).ready(function () {
       <option value="unidades">unidades</option>
     </select>`;
 
-  // Crear el botón de eliminar (deshabilitado)
-  const colBoton = document.createElement('div');
-  colBoton.classList.add('col-auto');
-  colBoton.innerHTML = `<button type="button" class="btn btn-danger eliminar-ingrediente" disabled><i class="bi bi-x"></i></button>`;
+    // Crear el botón de eliminar (deshabilitado)
+    const colBoton = document.createElement('div');
+    colBoton.classList.add('col-auto');
+    colBoton.innerHTML = `<button type="button" class="btn btn-danger eliminar-ingrediente" disabled><i class="bi bi-x"></i></button>`;
 
-  // Agregar las columnas a la fila
-  ingredienteRow.appendChild(colIngrediente);
-  ingredienteRow.appendChild(colCantidad);
-  ingredienteRow.appendChild(colSelect);
-  ingredienteRow.appendChild(colBoton);
+    // Agregar las columnas a la fila
+    ingredienteRow.appendChild(colIngrediente);
+    ingredienteRow.appendChild(colCantidad);
+    ingredienteRow.appendChild(colSelect);
+    ingredienteRow.appendChild(colBoton);
 
-  // Agregar la fila al contenedor
-  ingredientesContainer.appendChild(ingredienteRow);
+    // Agregar la fila al contenedor
+    ingredientesContainer.appendChild(ingredienteRow);
   }
 });

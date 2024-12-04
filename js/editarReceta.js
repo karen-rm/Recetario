@@ -1,5 +1,10 @@
+import { estadoReceta } from './helpers.js';
+
 export function recuperarRecetaInfo(recetaId) {
   console.log('Estoy dentro de editarRecetas.js');
+  estadoReceta.setEditing(true); // Cambia a modo edición
+  $('#form-receta').data('id', recetaId); // Asocia el ID al formulario
+  
   $.ajax({
     url: '../Recetario/controllers/ctr_receta.php?action=obtenerReceta',
     type: 'POST',

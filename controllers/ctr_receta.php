@@ -104,19 +104,18 @@ class RecetaController
         }
     }
 
-    /*public function editarReceta()
+    public function editarReceta()
     {
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
 
-        if (isset($data['id_receta'], $data['titulo'], $data['instrucciones'], $data['tiempo_preparacion'], $data['estado'])) {
-            $modelo = new RecetaModelo();
-            $resultado = $modelo->actualizarReceta(
+        if (isset($data['id_receta'], $data['titulo'], $data['instrucciones'], $data['tiempo_preparacion'])) {
+            
+            $resultado = $this->recetaModel->actualizarReceta(
                 $data['id_receta'],
                 $data['titulo'],
                 $data['instrucciones'],
                 $data['tiempo_preparacion'],
-                $data['estado']
             );
 
             if ($resultado) {
@@ -127,7 +126,7 @@ class RecetaController
         } else {
             echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
         }
-    }*/
+    }
     
 
 
@@ -192,6 +191,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             case 'obtenerReceta':
                 $controller->obtenerReceta();
                 break;
+            case 'editarReceta':
+                $controller->editarReceta();
             default:
                 echo json_encode(['error' => 'Acción no reconocida']);
                 break;
