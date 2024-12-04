@@ -91,7 +91,7 @@
           </div>
         </div>
 
-        <div class="mb-3">
+        <div id="contenedor_img" class="mb-3">
           <label for="img">Selecccione una imagen </label>
           <br>
           <input type="file" class="input_img" name="imagen" id="imagen" accept="image/*" required>

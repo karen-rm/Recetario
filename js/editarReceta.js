@@ -14,11 +14,40 @@ export function recuperarRecetaInfo(recetaId) {
         $('#instrucciones').val(receta.instrucciones);
         $('#tiempo').val(receta.tiempo_preparacion);
 
+        // Limpiar el contenedor de la imagen y el párrafo de la ruta antes de agregar nuevos elementos
+        $('#contenedor_img').empty();
+
+        // Mostrar el nombre de la imagen si existe y agregar el párrafo y el botón
+        if (receta.imagen_url) {
+          // Agregar y mostrar el párrafo con la ruta de la imagen
+          $('#contenedor_img').append(`<p id="ruta-imagen">Imagen seleccionada: ${receta.imagen_url}</p>`);
+
+          // Crear y agregar el botón para cambiar la imagen
+          const botonCambiarImagen = `
+            <div class="col">
+              <button type="button" id="btn_cambiarImg" class="btn btn-link">Cambiar imagen</button>
+            </div>
+          `;
+          $('#contenedor_img').append(botonCambiarImagen);
+
+          // Mostrar el input de imagen solo si se hace clic en el botón
+          $('#btn_cambiarImg').click(function() {
+            $('#imagen').show(); // Mostrar el input de imagen
+            $('#ruta-imagen').hide(); // Ocultar el párrafo con la ruta de la imagen
+            $(this).hide(); // Ocultar el botón después de hacer clic
+          });
+
+          // Ocultar el input de imagen inicialmente
+          $('#imagen').hide();
+        } else {
+          // Si no hay imagen, solo mostrar el input y ocultar el párrafo
+          $('#imagen').show();
+          $('#ruta-imagen').hide();
+        }
+
         // Mostrar el formulario/modal de edición
-        document.getElementById('contenedor_form_agregar').style.display =
-          'flex';
-        document.getElementById('insertar_receta').textContent =
-          'Guardar cambios';
+        document.getElementById('contenedor_form_agregar').style.display = 'flex';
+        document.getElementById('insertar_receta').textContent = 'Guardar cambios';
         document.querySelector('h2').textContent = 'Editar receta';
         $('.menu-opciones').hide();
 
@@ -32,6 +61,9 @@ export function recuperarRecetaInfo(recetaId) {
     },
   });
 }
+
+
+
 
 function cargarIngredientes(id_receta) {
   console.log('Estoy dentro de cargarIngredientes');
@@ -144,7 +176,6 @@ function cargarIngredientes(id_receta) {
     },
   });
 }
-
 
 
 

@@ -45,6 +45,14 @@ label{
   width: auto; /* Ajustar automáticamente al contenido */
   display: inline-block; /* Asegurar que no ocupe todo el ancho */
   color: #F4A261;
+  border-radius: 0% !important; 
+}
+
+#btn_cambiarImg{
+  width: auto; /* Ajustar automáticamente al contenido */
+  display: inline-block; /* Asegurar que no ocupe todo el ancho */
+  color: #F4A261;
+  border-radius: 0% !important; 
 }
 
 #insertar_receta {
