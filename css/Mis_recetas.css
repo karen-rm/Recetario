@@ -1,60 +1,151 @@
+/* !PRUEBA 2 */
 .recetas-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Ajusta el número de columnas automáticamente */
+  gap: 10px; /* Reduce el espacio entre las tarjetas */
+  padding: 10px;
+  justify-content: left; /* Asegura que las tarjetas estén centradas */
+}
+
+@media (min-width: 1200px) {
+  .recetas-container {
+      gap: 10px; /* Reduce aún más el espacio en pantallas muy grandes */
+      padding: 30px; /* Ajusta el padding para mayor consistencia */
+  }
+}
+
+h1{
+  text-align: center;
+  padding: 20px;
 }
 
 .tarjeta {
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    position: relative;
+  width: 220px; 
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.tarjeta:nth-child(odd) {
+  background-color: #f9a26b; 
+}
+
+.tarjeta:nth-child(even) {
+  background-color: #264653;
+}
+
+.tarjeta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .tarjeta img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
+  width: 100%;
+  height: 120px; 
+  object-fit: cover;
+  border-bottom: 2px solid #f4a261;
 }
 
 .tarjeta h3 {
-    margin: 10px 0;
-    font-size: 18px;
+  margin: 10px 5px;
+  font-size: 16px; 
+  font-weight: bold;
+  color: #ffffff;
+  text-align: left;
 }
 
-.opciones {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.cardBody {
+  padding: 8px 10px; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .tres-puntos {
-    cursor: pointer;
-    font-size: 18px;
+  cursor: pointer;
+  font-size: 36px; 
+  color: #ffffff;
+  transition: color 0.2s ease;
+  position: relative;
+  bottom: 10px;
 }
 
 .menu-opciones {
-    display: none;
-    position: absolute;
-    top: 20px;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100;
 }
 
 .menu-opciones button {
-    display: block;
-    margin-bottom: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
+  display: block;
+  margin-bottom: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: #264653;
+  text-align: left;
+  padding: 5px 8px; 
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.menu-opciones button:hover {
+  background-color: #f4a261;
+  color: #fff;
+  border-radius: 4px;
+}
+
+#btn_agregar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 50px;
+  height: 50px;
+  background-color: #F4A261;
+  border: none;
+  color: white;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#btn_agregar:active {
+  background-color: #fe790c;
+  transform: scale(0.95);
+}
+
+.bi-heart-fill {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: rgb(255, 255, 255); 
+  border-radius: 100%;
+  padding: 10px; 
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.bi-heart-fill:hover {
+  transform: scale(1.2);
+}
+
+.bi-heart-fill.text-danger {
+  color: red;
+}
+
+
+/* !ESTILOS PREDETERMINADOS */
 #btn_agregar {
     position: fixed;
     bottom: 20px;
@@ -69,8 +160,8 @@
 }
 
 #btn_agregar:active {
-    background-color: #fe790c; /* Tono más oscuro */
-    transform: scale(0.95); /* Efecto de clic */
+    background-color: #fe790c; 
+    transform: scale(0.95); 
 }
 
 #contenedor_form_agregar{
@@ -78,20 +169,13 @@
 }
 
 .content {
-    /*position: relative;
-    padding: 20px;
-    width: 700px;
-    background-color: #ffffff;
-    margin-top: 10px;
-    border-radius: 8px;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);*/
-    display: none; /* Inicialmente oculto */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo borroso */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -105,8 +189,106 @@
     border-radius: 8px;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
     position: relative;
-    overflow-y: auto; /* Habilita scroll vertical */
+    overflow-y: auto; 
     max-height: 90vh;
     border-radius: 15px;
     clip-path: inset(0 round 15px);
 }
+
+/* Estilos generales para los modals */
+.modal-content {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom right, #fff9e6, #ffefcc); 
+  }
+  
+  .modal-header {
+    background-color: #ffcc80; 
+    border-bottom: 2px solid #ffa726; 
+    color: #4e342e; 
+  }
+  
+  .modal-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .btn-close {
+    color: #4e342e;
+    opacity: 0.8;
+  }
+  
+  .btn-close:hover {
+    opacity: 1;
+  }
+  
+  .modal-body {
+    color: #5d4037; 
+    font-size: 1rem;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Estilos para el pie del modal */
+  .modal-footer {
+    border-top: 2px solid #ffa726; 
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+  
+  .modal-footer .btn {
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+  }
+  
+  /* Botón aceptar */
+  .btn-primary {
+    background-color: #006eff; 
+    color: #ffffff; 
+    border: 1px solid #006eff;
+    width: 100%;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #388cfa; 
+    border-color: #388cfa;
+    color: #ffffff;
+  }
+
+  /* Botón cancelar */
+  .btn-secondary {
+    background-color: #ffe0b2; 
+    color: #5d4037; 
+    border: 1px solid #ffcc80;
+    width: 100%;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #ffd54f; 
+    border-color: #ffb74d;
+    color: #4e342e;
+  }
+  
+  /* Botón eliminar */
+  .btn-danger {
+    background-color: #e57373; 
+    color: #fff;
+    border: none;
+    width: 100%;
+  }
+  
+  .btn-danger:hover {
+    background-color: #f44336; 
+    color: #ffe0b2;
+  }
+  
+  /* Transición para botones */
+  .modal-footer .btn {
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+  }
+  

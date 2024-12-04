@@ -1,6 +1,6 @@
-$(document).ready(function() {
+ $(document).ready(function() {
     $.ajax({
-        url: "/Recetario/controllers/ctr_receta.php?action=recetasPublicasSesion",
+        url: "/Recetario/controllers/ctr_receta.php?action=recetasPublicas",
         method: "GET",
         dataType: "json",
         success: function(recetas) {
