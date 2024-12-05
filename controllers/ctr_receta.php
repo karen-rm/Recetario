@@ -249,6 +249,29 @@ public function obtenerRecetasPublicas() {
     }
     exit();
 }
+
+public function cambiarEstadoReceta() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id_receta = $_POST['id_receta'] ?? null;
+
+        if ($id_receta) {
+            $nuevo_estado = 'publico'; // Definimos el nuevo estado por defecto como "publico"
+            $resultado = $this->recetaModel->actualizarEstadoReceta($id_receta, $nuevo_estado);
+            
+            if ($resultado) {
+                echo json_encode(['success' => true, 'message' => 'La receta ahora es pública.']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al cambiar el estado de la receta.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'ID de receta no proporcionado.']);
+        }
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
+    }
+}
+
+
 }
 
 $controller = new RecetaController();
@@ -292,6 +315,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             case 'actualizarReceta':
                 $controller->editarReceta();
                 break; 
+            case 'cambiarEstadoReceta' :
+             $controller->cambiarEstadoReceta(); 
+            break; 
             default:
                 echo json_encode(['error' => 'Acción no reconocida']);
                 break;

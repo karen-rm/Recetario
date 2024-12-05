@@ -29,7 +29,7 @@ $(document).ready(function () {
                             <div class="menu-opciones">
                                  <button class="editar" data-id="${receta.id_receta}">Editar</button>
                                 <button class="eliminar" data-id="${receta.id_receta}" data-titulo="${receta.titulo}">Eliminar</button>
-                                <button class="publicar">Publicar</button>
+                                <button class="publicar" data-id="${receta.id_receta}" >Publicar</button>
                             </div>
                         </div>
                     </div>
@@ -176,27 +176,49 @@ $(document).ready(function () {
     });
   }
 
+  $(document).on('click', '.publicar', function () {
+    const idReceta = $(this).data('id');
+    console.log(idReceta); 
+    $.ajax({
+      url: '../Recetario/controllers/ctr_receta.php?action=cambiarEstadoReceta', // Cambia esta ruta según tu configuración
+      type: 'POST',
+      data: { id_receta: idReceta },
+      success: function (response) {
+        if (response.success) {
+          //alert(response.message); // Mensaje de éxito
+          location.reload(); // Opcional: Recarga la página para actualizar el estado
+          alert('Receta publicada exitosamente');
+        } else {
+          //alert(response.message); // Mensaje de error
+          alert('Receta publicada exitosamente');
+        }
+      },
+      error: function () {
+        alert('Ocurrió un error al intentar cambiar el estado de la receta.');
+      },
+    });
+  });
+
   window.estadoReceta = {
-  isEditing: false,
-  recetaId: null,
-  setEditing(isEdit, id = null) {
-    this.isEditing = isEdit;
-    this.recetaId = id;
-  },
-  getEditing() {
-    return this.isEditing;
-  },
-  getRecetaId() {
-    return this.recetaId;
-  },
-};
+    isEditing: false,
+    recetaId: null,
+    setEditing(isEdit, id = null) {
+      this.isEditing = isEdit;
+      this.recetaId = id;
+    },
+    getEditing() {
+      return this.isEditing;
+    },
+    getRecetaId() {
+      return this.recetaId;
+    },
+  };
 
-// Acceder globalmente
-console.log(window.estadoReceta.getEditing());
-
+  // Acceder globalmente
+  console.log(window.estadoReceta.getEditing());
 
   function recuperarRecetaInfo(recetaId) {
-    console.log(recetaId); 
+    console.log(recetaId);
     //console.log('Estoy dentro de editarRecetas.js con id'.recetaId);
 
     $.ajax({
@@ -270,117 +292,126 @@ console.log(window.estadoReceta.getEditing());
   }
 
   function cargarIngredientes(id_receta) {
-  console.log('Estoy dentro de cargarIngredientes');
-  
-  $.ajax({
-    url: `../Recetario/controllers/ctr_ingrediente.php?action=obtenerIngredientes&id_receta=${id_receta}`,
-    type: 'GET',
-    dataType: 'json',
-    success: function (ingredientes) {
-      console.log('Respuesta del servidor:', ingredientes);
+    console.log('Estoy dentro de cargarIngredientes');
 
-      // Verifica si la respuesta es un array
-      if (Array.isArray(ingredientes)) {
-        const container = document.getElementById('ingredientes-container');
-        container.innerHTML = ''; // Limpiar el contenedor antes de cargar los ingredientes
+    $.ajax({
+      url: `../Recetario/controllers/ctr_ingrediente.php?action=obtenerIngredientes&id_receta=${id_receta}`,
+      type: 'GET',
+      dataType: 'json',
+      success: function (ingredientes) {
+        console.log('Respuesta del servidor:', ingredientes);
 
-        // Lista de opciones posibles para el select
-        const opcionesUnidad = [
-          'unidad',
-          'cucharada',
-          'cucharadita',
-          'media cucharada',
-          'cuarto',
-          'kilo',
-          'medio',
-          'lata',
-          'litro',
-          'paquete',
-          'mililitro',
-          'botella',
-          'pieza',
-          'piezas',
-          'pizca',
-          'taza',
-          'unidades',
-        ];
+        // Verifica si la respuesta es un array
+        if (Array.isArray(ingredientes)) {
+          const container = document.getElementById('ingredientes-container');
+          container.innerHTML = ''; // Limpiar el contenedor antes de cargar los ingredientes
 
-        // Iterar sobre los ingredientes y crear la estructura de cada fila
-        ingredientes.forEach((ing, index) => {
-          // Crear la estructura de la fila de ingrediente
-          const ingredienteRow = document.createElement('div');
-          ingredienteRow.classList.add('row', 'ingrediente');
-          ingredienteRow.setAttribute('data-id-ingrediente', ing.id_ingrediente); // Agregar el ID como un atributo
+          // Lista de opciones posibles para el select
+          const opcionesUnidad = [
+            'unidad',
+            'cucharada',
+            'cucharadita',
+            'media cucharada',
+            'cuarto',
+            'kilo',
+            'medio',
+            'lata',
+            'litro',
+            'paquete',
+            'mililitro',
+            'botella',
+            'pieza',
+            'piezas',
+            'pizca',
+            'taza',
+            'unidades',
+          ];
 
-          // Crear la primera columna (input para ingrediente)
-          const colIngrediente = document.createElement('div');
-          colIngrediente.classList.add('col');
-          colIngrediente.innerHTML = `<input type="text" class="form-control" name="ingrediente" value="${ing.ingrediente}" placeholder="Ingrediente" pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras" required>`;
+          // Iterar sobre los ingredientes y crear la estructura de cada fila
+          ingredientes.forEach((ing, index) => {
+            // Crear la estructura de la fila de ingrediente
+            const ingredienteRow = document.createElement('div');
+            ingredienteRow.classList.add('row', 'ingrediente');
+            ingredienteRow.setAttribute(
+              'data-id-ingrediente',
+              ing.id_ingrediente
+            ); // Agregar el ID como un atributo
 
-          // Crear la segunda columna (input para cantidad)
-          const colCantidad = document.createElement('div');
-          colCantidad.classList.add('col');
-          colCantidad.innerHTML = `<input type="number" class="form-control" name="cantidad" value="${ing.cantidad}" placeholder="Cantidad" pattern="\\d+" title="Solo se permiten números" required>`;
+            // Crear la primera columna (input para ingrediente)
+            const colIngrediente = document.createElement('div');
+            colIngrediente.classList.add('col');
+            colIngrediente.innerHTML = `<input type="text" class="form-control" name="ingrediente" value="${ing.ingrediente}" placeholder="Ingrediente" pattern="[A-Za-zÀ-ÿ\s]+" title="Solo se permiten letras" required>`;
 
-          // Crear la tercera columna (select para unidad de medida)
-          const colSelect = document.createElement('div');
-          colSelect.classList.add('col');
-          const selectMedida = document.createElement('select');
-          selectMedida.classList.add('form-control');
-          selectMedida.name = 'select_medida';
-          selectMedida.required = true;
+            // Crear la segunda columna (input para cantidad)
+            const colCantidad = document.createElement('div');
+            colCantidad.classList.add('col');
+            colCantidad.innerHTML = `<input type="number" class="form-control" name="cantidad" value="${ing.cantidad}" placeholder="Cantidad" pattern="\\d+" title="Solo se permiten números" required>`;
 
-          // Agregar las opciones al select y marcar la opción correspondiente
-          opcionesUnidad.forEach((opcion) => {
-            const option = document.createElement('option');
-            option.value = opcion;
-            option.textContent = opcion;
-            if (ing.unidad === opcion) {
-              option.selected = true;
+            // Crear la tercera columna (select para unidad de medida)
+            const colSelect = document.createElement('div');
+            colSelect.classList.add('col');
+            const selectMedida = document.createElement('select');
+            selectMedida.classList.add('form-control');
+            selectMedida.name = 'select_medida';
+            selectMedida.required = true;
+
+            // Agregar las opciones al select y marcar la opción correspondiente
+            opcionesUnidad.forEach((opcion) => {
+              const option = document.createElement('option');
+              option.value = opcion;
+              option.textContent = opcion;
+              if (ing.unidad === opcion) {
+                option.selected = true;
+              }
+              selectMedida.appendChild(option);
+            });
+            colSelect.appendChild(selectMedida);
+
+            // Crear la última columna (botón de eliminar)
+            const colBoton = document.createElement('div');
+            colBoton.classList.add('col-auto');
+            const botonEliminar = document.createElement('button');
+            botonEliminar.type = 'button';
+            botonEliminar.classList.add(
+              'btn',
+              'btn-danger',
+              'eliminar-ingrediente'
+            );
+            botonEliminar.innerHTML = '<i class="bi bi-x"></i>';
+
+            // Desactivar el botón solo si es el primer ingrediente
+            if (index === 0) {
+              botonEliminar.disabled = true;
             }
-            selectMedida.appendChild(option);
+
+            // Asignar el evento de eliminación al botón
+            botonEliminar.addEventListener('click', function () {
+              const idIngrediente = ingredienteRow.getAttribute(
+                'data-id-ingrediente'
+              );
+              console.log('Eliminar ingrediente con ID:', idIngrediente);
+              // Eliminar la fila del contenedor
+              container.removeChild(ingredienteRow);
+            });
+
+            colBoton.appendChild(botonEliminar);
+
+            // Agregar las columnas a la fila
+            ingredienteRow.appendChild(colIngrediente);
+            ingredienteRow.appendChild(colCantidad);
+            ingredienteRow.appendChild(colSelect);
+            ingredienteRow.appendChild(colBoton);
+
+            // Agregar la fila al contenedor
+            container.appendChild(ingredienteRow);
           });
-          colSelect.appendChild(selectMedida);
-
-          // Crear la última columna (botón de eliminar)
-          const colBoton = document.createElement('div');
-          colBoton.classList.add('col-auto');
-          const botonEliminar = document.createElement('button');
-          botonEliminar.type = 'button';
-          botonEliminar.classList.add('btn', 'btn-danger', 'eliminar-ingrediente');
-          botonEliminar.innerHTML = '<i class="bi bi-x"></i>';
-
-          // Desactivar el botón solo si es el primer ingrediente
-          if (index === 0) {
-            botonEliminar.disabled = true;
-          }
-
-          // Asignar el evento de eliminación al botón
-          botonEliminar.addEventListener('click', function () {
-            const idIngrediente = ingredienteRow.getAttribute('data-id-ingrediente');
-            console.log('Eliminar ingrediente con ID:', idIngrediente);
-            // Eliminar la fila del contenedor
-            container.removeChild(ingredienteRow);
-          });
-
-          colBoton.appendChild(botonEliminar);
-
-          // Agregar las columnas a la fila
-          ingredienteRow.appendChild(colIngrediente);
-          ingredienteRow.appendChild(colCantidad);
-          ingredienteRow.appendChild(colSelect);
-          ingredienteRow.appendChild(colBoton);
-
-          // Agregar la fila al contenedor
-          container.appendChild(ingredienteRow);
-        });
-      } else {
-        console.error('La respuesta no es un array:', ingredientes);
-      }
-    },
-    error: function (xhr, status, error) {
-      console.error('Error al cargar ingredientes:', status, error);
-    },
-  });
-}
+        } else {
+          console.error('La respuesta no es un array:', ingredientes);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Error al cargar ingredientes:', status, error);
+      },
+    });
+  }
 });
