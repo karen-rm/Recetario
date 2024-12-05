@@ -34,4 +34,4 @@
         <!-- Las recetas se cargarán aquí dinámicamente -->
     </div>
 </section>
-<script src="./js/ObtenerRecetasPublicasSesion.js"></script>
+<script type="module" src="./js/ObtenerRecetasPublicasSesion.js"></script>

@@ -1,6 +1,4 @@
-import { recuperarRecetaInfo } from './editarReceta.js';
-
-export function obtenerRecetas(callback) {
+function obtenerRecetas(callback) {
   $.ajax({
     url: '/Recetario/controllers/ctr_receta.php?action=obtenerRecetas',
     method: 'GET',
@@ -14,8 +12,8 @@ export function obtenerRecetas(callback) {
     },
   });
 }
-
-export function mostrarRecetas(recetas) {
+window.obtenerRecetas = obtenerRecetas;
+ function mostrarRecetasVolver(recetas) {
   const contenedor = $('#contenedor-recetas');
   contenedor.empty(); // Limpiar el contenedor
 
@@ -49,7 +47,7 @@ export function mostrarRecetas(recetas) {
     $('.menu-opciones').hide(); 
   });
 }
-
+window.mostrarRecetasVolver = mostrarRecetasVolver;
 export function configurarBotonEditar() {
   $('#contenedor-recetas').on('click', '.editar', function () {
     const recetaId = $(this).data('id'); // Obtén el ID de la receta

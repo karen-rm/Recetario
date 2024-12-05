@@ -22,7 +22,7 @@
     <!-- Importar iconos boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-    <script src="./js/inicio.js"></script>
+    <script  type="module" src="./js/inicio.js"></script>
 
 </head>
 

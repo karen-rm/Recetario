@@ -1,6 +1,4 @@
-import { mostrarRecetas, obtenerRecetas } from './helpers.js';
-
-$(document).ready(function () {
+function inicializarAgregarReceta() {
   
   const modal = document.getElementById('contenedor_form_agregar');
 
@@ -122,16 +120,26 @@ $(document).ready(function () {
         success: function (response) {
           console.log('Imagen subida con éxito:', response);
           alert('Imagen subida correctamente.');
-
+            $.ajax({
+                url: '../Recetario/controllers/ctr_receta.php?action=obtenerRecetas',// El archivo PHP del controlador
+                method: 'GET', //  aqui defino el método HTTP que se utilizará para la solicitud
+                dataType: 'json', // aqui indico el tipo de datos que se espera recibir del servidor
+                success: function(data) {
+                    mostrarRecetas(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error al obtener las recetas:", error);
+                }
+            });
            // Actualizar la lista de recetas
-            obtenerRecetas((error, recetas) => {
+           /* obtenerRecetas((error, recetas) => {
                 if (error) {
                     console.error("Error al actualizar recetas:", error);
                     return;
                 }
 
                 // Vuelve a mostrar las recetas actualizadas
-                mostrarRecetas(recetas);
+                mostrarRecetasVolver(recetas);
 
                 // Opcional: Forzar la recarga de la imagen recién subida
                 const recetaImagen = document.querySelector(
@@ -140,7 +148,7 @@ $(document).ready(function () {
                 if (recetaImagen) {
                     recetaImagen.src = `img_u/${response.imagen_url}?t=${new Date().getTime()}`;
                 }
-            });
+            });*/
 
         },
         error: function (xhr, status, error) {
@@ -151,7 +159,7 @@ $(document).ready(function () {
           );
         },
       });
-    }
+  }
 
     // Función para obtener los ingredientes
     function guardarIngredientes(id_receta) {
@@ -267,4 +275,5 @@ $(document).ready(function () {
       },
     });
   });
-});
+}
+window.inicializarAgregarReceta = inicializarAgregarReceta;

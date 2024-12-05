@@ -10,6 +10,14 @@ error_reporting(E_ALL);
 
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['error' => 'Usuario no autenticado']);
+    http_response_code(401); // Código de error para sesión no autorizada
+    exit;
+}
+
+// Continuar con el procesamiento si la sesión está activa
+
 header('Content-Type: application/json');
 header('Content-Type: image/jpeg');
 

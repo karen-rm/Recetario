@@ -106,4 +106,4 @@
     </footer>
 </div>
 
-<script src="./js/ObtenerRecetasPublicasHome.js"></script>
+<script type="module" src="./js/ObtenerRecetasPublicasHome.js"></script>

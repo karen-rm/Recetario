@@ -12,7 +12,7 @@ $(document).ready(function () {
   
 });
 
-function loadNavbar() {
+async function loadNavbar() {
   // Verificar si el usuario está autenticado
   // console.log("entra");
   
@@ -31,7 +31,7 @@ function loadNavbar() {
 
 
 // Función para cargar la página y sus estilos
-function loadPageWithStyles(url, cssFilePath) {
+async function loadPageWithStyles(url, cssFilePath) {
   $('#main-container').load(url, function () {
     // Verificar si la hoja de estilo ya existe
     if (!$("link[href='" + cssFilePath + "']").length) {
@@ -43,7 +43,21 @@ function loadPageWithStyles(url, cssFilePath) {
     }
   });
 }
-function cargarContenido(opcion) {
+async function inicializarMisRecetas() {
+  // Llama al backend para obtener las recetas
+  $.ajax({
+    url: '/Recetario/controllers/ctr_receta.php?action=obtenerRecetas',
+    method: 'GET',
+    dataType: 'json',
+    success: function (recetas) {
+      mostrarRecetas(recetas); // Renderiza las recetas obtenidas
+    },
+    error: function (xhr, status, error) {
+      console.error("Error al obtener las recetas:", error);
+    },
+  });
+}
+async function cargarContenido(opcion) {
   $.ajax({
     url: './controllers/contenido.php',
     type: 'GET',
@@ -84,6 +98,14 @@ function cargarContenido(opcion) {
           'data-dynamic-style': true // Atributo para identificar estilos dinámicos
         }).appendTo('head');
       });
+      if (opcion === 'mis-recetas') {
+        inicializarMisRecetas();
+        $.getScript('./js/agregarReceta.js', function () {
+          inicializarAgregarReceta();
+        });
+      }else if (opcion === 'inicio') {
+        cargarRecetasPublicasSesion();
+      }
     },
     error: function (xhr, status, error) {
       console.error('Error:', status, error);

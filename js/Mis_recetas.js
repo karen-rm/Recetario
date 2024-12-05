@@ -14,7 +14,7 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
     });
 
 
-    function mostrarRecetas(recetas) {
+     function mostrarRecetas(recetas) {
         const contenedor = $('#contenedor-recetas');
         contenedor.empty();
         recetas.forEach(receta => {
@@ -90,6 +90,7 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
         });
 
     }
+    window.mostrarRecetas = mostrarRecetas;
 
     function inicializarFavoritos() {
         $.ajax({
@@ -158,4 +159,5 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
             }
         });
     }
+
 });
