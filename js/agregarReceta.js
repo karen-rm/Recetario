@@ -190,7 +190,7 @@ $(document).ready(function () {
         }
       });
 
-      //console.log('Ingredientes:', ingredientes);
+      console.log('Ingredientes:', ingredientes);
 
       // Crear el objeto que incluye el id_receta
       const dataToSend = {
@@ -261,16 +261,19 @@ const url = `../Recetario/controllers/ctr_receta.php?action=${action}`;
           // Recupera el id_receta de la respuesta y guardarlo en una variable
           var idReceta = response.id_receta;
 
+          guardarIngredientes(idReceta);
+
           if (!estadoReceta.getEditing()) {
             // Si no es edición, es agregar una nueva receta
              // Asegúrate de que esta función obtenga correctamente el ID
-            guardarIngredientes(idReceta);
+            
             enviarImagen(idReceta);
           } else {
             // Si es edición, probablemente ya tienes un ID y no necesitas subir una nueva imagen o ingredientes
             console.log(
               'Modo edición: No se guarda la imagen ni los ingredientes nuevamente.'
             );
+
             // Vuelve a mostrar las recetas actualizadas
             // Actualizar la lista de recetas
           obtenerRecetas((error, recetas) => {

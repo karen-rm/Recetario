@@ -39,49 +39,67 @@ class Ingrediente
         }
     }
 
-    public function actualizarIngrediente($id_ingrediente, $id_receta, $nombre, $cantidad, $unidad)
+    public function actualizarIngrediente($id_ingrediente, $id_receta, $nombreNuevo, $cantidadNuevo, $unidadNuevo)
 {
-    // Consulta SQL para actualizar el ingrediente en la tabla 'ingredientes'
-    $sql = "UPDATE ingredientes 
-            SET ingrediente = :ingrediente, cantidad = :cantidad, unidad = :unidad 
-            WHERE id_ingrediente = :id_ingrediente AND id_receta = :id_receta";
+    $query = "UPDATE ingredientes 
+              SET ingrediente = :nombre, cantidad = :cantidad, unidad = :unidad 
+              WHERE id_ingredientes = :id_ingrediente AND id_receta = :id_receta";
+    $stmt = $this->conexion->prepare($query);
 
-    // Preparar la consulta
-    $stmt = $this->conexion->prepare($sql);
-
-    // Vincular los parámetros de la consulta
-    $stmt->bindParam(':id_ingrediente', $id_ingrediente);
+    $stmt->bindParam(':nombre', $nombreNuevo);
+    $stmt->bindParam(':cantidad', $cantidadNuevo);
+    $stmt->bindParam(':unidad', $unidadNuevo);
+    $stmt->bindParam(':id_ingrediente', $id_ingrediente); // Corregido
     $stmt->bindParam(':id_receta', $id_receta);
-    $stmt->bindParam(':ingrediente', $nombre);
-    $stmt->bindParam(':cantidad', $cantidad);
-    $stmt->bindParam(':unidad', $unidad);
 
-    // Ejecutar la consulta y verificar si fue exitosa
-    if ($stmt->execute()) {
-        return true;  // Retorna true si la actualización fue exitosa
-    } else {
-        return false; // Retorna false si hubo un error
-    }
+    return $stmt->execute();
 }
+
 
     public function eliminarIngrediente($id_ingrediente)
 {
-    $sql = "DELETE FROM ingredientes WHERE id_ingrediente = :id_ingrediente";
+    $sql = "DELETE FROM ingredientes WHERE id_ingredientes = :id_ingrediente";
     $stmt = $this->conexion->prepare($sql);
-    $stmt->bindParam(':id_ingrediente', $id_ingrediente);
+    $stmt->bindParam(':id_ingredientes', $id_ingrediente);
 
     return $stmt->execute();
 }
 
 
     public function obtenerIngredientes($id_receta)
-    {
-        $sql = "SELECT ingrediente, cantidad, unidad FROM ingredientes WHERE id_receta = :id_receta";
-        $stmt = $this->conexion->prepare($sql);
-        $stmt->bindParam(':id_receta', $id_receta);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+{
+    $sql = "SELECT id_ingredientes, ingrediente, cantidad, unidad 
+            FROM ingredientes 
+            WHERE id_receta = :id_receta";
+    $stmt = $this->conexion->prepare($sql);
+    $stmt->bindParam(':id_receta', $id_receta);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+    public function obtenerIdIngrediente($id_receta, $nombre)
+{
+    // Consulta SQL para obtener el id_ingrediente con base en el id_receta y el nombre del ingrediente
+    $sql = "SELECT id_ingredientes FROM ingredientes 
+            WHERE id_receta = :id_receta AND ingrediente = :ingrediente";
+
+    // Preparar la consulta
+    $stmt = $this->conexion->prepare($sql);
+
+    // Vincular los parámetros de la consulta
+    $stmt->bindParam(':id_receta', $id_receta);
+    $stmt->bindParam(':ingrediente', $nombre);
+
+    // Ejecutar la consulta
+    $stmt->execute();
+
+    // Obtener el resultado
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Retornar el id_ingrediente si existe, de lo contrario retornar null
+    return $resultado ? $resultado['id_ingredientes'] : null;
+}
+
 
     
 
