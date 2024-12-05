@@ -55,6 +55,23 @@ class RecetaController
         exit();
     }
 
+    public function obtenerReceta()
+    {
+        if (isset($_POST['id_receta'])) {
+            $id_receta = $_POST['id_receta'];
+
+            $receta = $this->recetaModel->obtenerRecetaPorId($id_receta);
+
+            if ($receta) {
+                echo json_encode(['success' => true, 'receta' => $receta]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Receta no encontrada']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'ID de receta no proporcionado']);
+        }
+    }
+
     public function agregarReceta()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -92,6 +109,35 @@ class RecetaController
             } else {
                 echo json_encode(array('success' => false, 'message' => 'Error al insertar datos de la receta'));
             }
+        }
+    }
+
+    public function editarReceta()
+    {
+        //echo "Entrando a editarReceta";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jsonData = file_get_contents("php://input");
+            $data = json_decode($jsonData, true); // true convierte JSON a un array asociativo
+
+
+                $id = $data['id_receta'] ?? null; 
+                $titulo = $data['titulo'] ?? null;
+                $instrucciones = $data['instrucciones'] ?? null;
+                $tiempo = $data['tiempo'] ?? null;
+
+                $resultado = $this->recetaModel->actualizarReceta($id, $titulo, $instrucciones, $tiempo);
+
+                if ($resultado) {
+                    echo json_encode(array('success' => true, 'id_receta' => $id, 'message' => 'Receta actualizada correctamente.'));
+                } else {
+                    echo json_encode(array('success' => false, 'message' => 'Error al actualizar la receta.'));
+                }
+
+
+                //echo json_encode(array('success' => true, 'message' => 'Datos insertados correctamente, el id_usuario es: '. $id_usuario));
+            
+        }else {
+                echo json_encode(array('success' => false, 'message' => 'Error al actualizar datos de la receta'));
         }
     }
 
@@ -234,12 +280,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             case 'agregarImagen':
                 $controller->agregarImagen();
                 break;
+            case 'obtenerReceta':
+                $controller->obtenerReceta();
+                break;
             case 'eliminarReceta' :
                 $controller->eliminarReceta();
                 break;
             case 'toggleFavorito' :
                 $controller->toggleFavorito();
                 break;
+            case 'actualizarReceta':
+                $controller->editarReceta();
+                break; 
             default:
                 echo json_encode(['error' => 'Acción no reconocida']);
                 break;

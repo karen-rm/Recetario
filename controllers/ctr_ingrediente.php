@@ -57,7 +57,48 @@ class IngredienteController
       
     }
   }
+
+    public function obtenerIngredientes()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $id_receta = $_GET['id_receta'];
+        $ingredientes = $this->ingredienteModel->obtenerIngredientes($id_receta);
+
+        if ($ingredientes === false) {
+            echo json_encode(["error" => "No se encontraron ingredientes"]);
+            return;
+        }
+
+        // Verifica si $ingredientes es un array antes de codificarlo
+        if (is_array($ingredientes)) {
+            echo json_encode($ingredientes);
+        } else {
+            echo json_encode(["error" => "Error en la respuesta de ingredientes"]);
+        }
+    }
+}
+
+
 }
 
 $controller = new IngredienteController();
-$controller->agregarIngrediente();
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  if (isset($_GET['action']) && $_GET['action'] === 'obtenerIngredientes') {
+    $controller->obtenerIngredientes();
+  }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+      case 'agregarIngrediente':
+        $controller->agregarIngrediente();
+        break;
+      /*case 'editarIngrediente':
+        $controller->actualizarIngredientes();
+        break; */
+      default:
+        echo json_encode(['error' => 'Acción no reconocida']);
+        break;
+    }
+  }
+}

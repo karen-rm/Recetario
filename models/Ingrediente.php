@@ -36,6 +36,17 @@ class Ingrediente {
     }
 }
 
+ public function obtenerIngredientes($id_receta)
+{
+    $sql = "SELECT id_ingredientes, ingrediente, cantidad, unidad 
+            FROM ingredientes 
+            WHERE id_receta = :id_receta";
+    $stmt = $this->conexion->prepare($sql);
+    $stmt->bindParam(':id_receta', $id_receta);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 }
 ?>
