@@ -1,7 +1,7 @@
 function cargarRecetasPublicasSesion() {
     $(document).ready(function () {
         $.ajax({
-            url: '/Recetario/controllers/ctr_receta.php?action=recetasPublicasSesion',
+            url: '../controllers/ctr_receta.php?action=recetasPublicasSesion',
             method: 'GET',
             dataType: 'json',
             success: function (recetas) {

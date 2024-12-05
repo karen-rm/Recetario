@@ -1,7 +1,7 @@
 export function recuperarRecetaInfo(recetaId) {
   console.log('Estoy dentro de editarRecetas.js');
   $.ajax({
-    url: '../Recetario/controllers/ctr_receta.php?action=obtenerReceta',
+    url: '../controllers/ctr_receta.php?action=obtenerReceta',
     type: 'POST',
     data: { id_receta: recetaId },
     dataType: 'json',

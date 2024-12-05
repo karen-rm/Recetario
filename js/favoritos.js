@@ -2,7 +2,7 @@ $(document).ready(function() {
     const Favoritos = {
         agregarFavorito: function (idReceta) {
             $.ajax({
-                url: '/Recetario/controllers/ctr_receta.php?action=agregarFavorito',
+                url: '../controllers/ctr_receta.php?action=agregarFavorito',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ id_receta: idReceta }),
@@ -23,7 +23,7 @@ $(document).ready(function() {
 
         verificarEstadoFavorito: function (idReceta, callback) {
             $.ajax({
-                url: '/Recetario/controllers/ctr_receta.php?action=verificarFavorito',
+                url: '../controllers/ctr_receta.php?action=verificarFavorito',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ id_receta: idReceta }),
@@ -39,7 +39,7 @@ $(document).ready(function() {
         toggleFavorito: function (idReceta, callback) {
             // Alterna entre agregar o quitar una receta de favoritos
             $.ajax({
-                url: '/Recetario/controllers/ctr_receta.php?action=toggleFavorito',
+                url: '../controllers/ctr_receta.php?action=toggleFavorito',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ id_receta: idReceta }),

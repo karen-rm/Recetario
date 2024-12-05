@@ -1,6 +1,13 @@
-<h1>Mis recetas</h1>
+<h1 class="text-center fw-bold ">Mis recetas</h1>
 
-  <div id="contenedor-recetas" class="recetas-container"></div>
+<div class="container">
+  <div class="row g-3" >
+    <div class="col-12 col-sm-6 col-lg-4 mb-4 rounded-sm" id="contenedor-recetas">
+    </div>
+  </div>
+</div>
+
+
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
     <!-- Modal para aceptar favoritos la receta -->
@@ -164,7 +171,7 @@
 
   <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- <script src="../Recetario/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-  <script type="module" src="../Recetario/js/agregarReceta.js"></script>
-  <script type="module" src="../Recetario/js/Mis_Recetas.js"></script>
+  <script type="module" src="../js/agregarReceta.js"></script>
+  <script type="module" src="../js/Mis_Recetas.js"></script>
 
 
