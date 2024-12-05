@@ -39,6 +39,41 @@ class Ingrediente
         }
     }
 
+    public function actualizarIngrediente($id_ingrediente, $id_receta, $nombre, $cantidad, $unidad)
+{
+    // Consulta SQL para actualizar el ingrediente en la tabla 'ingredientes'
+    $sql = "UPDATE ingredientes 
+            SET ingrediente = :ingrediente, cantidad = :cantidad, unidad = :unidad 
+            WHERE id_ingrediente = :id_ingrediente AND id_receta = :id_receta";
+
+    // Preparar la consulta
+    $stmt = $this->conexion->prepare($sql);
+
+    // Vincular los parámetros de la consulta
+    $stmt->bindParam(':id_ingrediente', $id_ingrediente);
+    $stmt->bindParam(':id_receta', $id_receta);
+    $stmt->bindParam(':ingrediente', $nombre);
+    $stmt->bindParam(':cantidad', $cantidad);
+    $stmt->bindParam(':unidad', $unidad);
+
+    // Ejecutar la consulta y verificar si fue exitosa
+    if ($stmt->execute()) {
+        return true;  // Retorna true si la actualización fue exitosa
+    } else {
+        return false; // Retorna false si hubo un error
+    }
+}
+
+    public function eliminarIngrediente($id_ingrediente)
+{
+    $sql = "DELETE FROM ingredientes WHERE id_ingrediente = :id_ingrediente";
+    $stmt = $this->conexion->prepare($sql);
+    $stmt->bindParam(':id_ingrediente', $id_ingrediente);
+
+    return $stmt->execute();
+}
+
+
     public function obtenerIngredientes($id_receta)
     {
         $sql = "SELECT ingrediente, cantidad, unidad FROM ingredientes WHERE id_receta = :id_receta";

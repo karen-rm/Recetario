@@ -11,7 +11,7 @@ $(document).ready(function () {
     document.querySelector('h2').textContent = 'Agregar receta';
     document.getElementById('btn_agregar').style.display = 'none';
     $('#img_titulo').show();
-    $('#imagen').show();
+    document.getElementById('imagen').disabled = false;
     limpiarIngredientes();
     estadoReceta.setEditing(false); // Reinicia el estado
   });
@@ -201,9 +201,13 @@ $(document).ready(function () {
       // Convertir el objeto a JSON
       const jsonData = JSON.stringify(dataToSend);
 
+      // Verificamos si es una edición o una adición
+      const actionType = estadoReceta.getEditing() ? 'editarIngrediente' : 'agregarIngrediente';
+
       // Enviar la solicitud AJAX
       $.ajax({
-        url: '../Recetario/controllers/ctr_ingrediente.php?action=agregarIngrediente',
+        //url: '../Recetario/controllers/ctr_ingrediente.php?action=agregarIngrediente',
+        url: `../Recetario/controllers/ctr_ingrediente.php?action=${actionType}`,
         type: 'POST',
         data: jsonData, // Enviar los datos como JSON
         contentType: 'application/json', // Indicar que el contenido es JSON
@@ -222,19 +226,24 @@ $(document).ready(function () {
     }
 
     // Crear un objeto con los datos
-    const postData = {
-      titulo: $('#titulo').val(),
-      instrucciones: $('#instrucciones').val(),
-      tiempo: $('#tiempo').val(),
-    };
+const postData = {
+  titulo: $('#titulo').val(),
+  instrucciones: $('#instrucciones').val(),
+  tiempo: $('#tiempo').val(),
+};
 
-    // Convertir el objeto a JSON
-    const jsonData = JSON.stringify(postData);
-    //console.log('Datos enviados en JSON:', jsonData);
+if (estadoReceta.getEditing()) {
+  const recetaId = estadoReceta.getRecetaId(); // Recuperar el ID desde el estado global
+  console.log('El ID que vamos a mandar es:', recetaId);
+  postData.id_receta = recetaId;
+}
 
-    const isEditing = estadoReceta.getEditing();
-    const action = isEditing ? 'actualizarReceta' : 'agregarReceta';
-    const url = `../Recetario/controllers/ctr_receta.php?action=${action}`;
+// Convertir el objeto a JSON
+const jsonData = JSON.stringify(postData);
+console.log('Datos enviados en JSON:', jsonData);
+
+const action = estadoReceta.getEditing() ? 'actualizarReceta' : 'agregarReceta';
+const url = `../Recetario/controllers/ctr_receta.php?action=${action}`;
 
     $.ajax({
       //url: '../Recetario/controllers/ctr_receta.php?action=agregarReceta',
@@ -262,15 +271,26 @@ $(document).ready(function () {
             console.log(
               'Modo edición: No se guarda la imagen ni los ingredientes nuevamente.'
             );
+            // Vuelve a mostrar las recetas actualizadas
+            // Actualizar la lista de recetas
+          obtenerRecetas((error, recetas) => {
+            if (error) {
+              console.error('Error al actualizar recetas:', error);
+              return;
+            }
+
+            // Vuelve a mostrar las recetas actualizadas
+            mostrarRecetas(recetas);
+
+          });
           }
 
           // Limpiar el formulario
           $('#formReceta')[0].reset();
           limpiarIngredientes();
-          document.getElementById('contenedor_form_agregar').style.display =
-            'none';
+          document.getElementById('contenedor_form_agregar').style.display ='none';
           document.getElementById('btn_agregar').style.display = 'flex';
-          estadoReceta.setEditing(false); // Reinicia el estado
+          estadoReceta.setEditing(false, null);
         } else {
           alert(response.message); // Mostrar mensaje de error
         }

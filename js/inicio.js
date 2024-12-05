@@ -68,7 +68,7 @@ function cargarContenido(opcion) {
         stylesheets = ['./css/index.css'];
       } else if (opcion === 'mis-recetas') {
         // Aquí carga múltiples estilos
-        stylesheets = ['./css/Mis_recetas.css'];
+        stylesheets = ['./css/Mis_recetas.css', './css/form_agregar_receta.css'];
       } else if (opcion === 'favoritos') {
         stylesheets = ['./css/favoritos.css'];
       }

@@ -106,135 +106,145 @@ class RecetaController
 
     public function editarReceta()
     {
-        $json = file_get_contents('php://input');
-        $data = json_decode($json, true);
+        //echo "Entrando a editarReceta";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jsonData = file_get_contents("php://input");
+            $data = json_decode($jsonData, true); // true convierte JSON a un array asociativo
 
-        if (isset($data['id_receta'], $data['titulo'], $data['instrucciones'], $data['tiempo_preparacion'])) {
-            
-            $resultado = $this->recetaModel->actualizarReceta(
-                $data['id_receta'],
-                $data['titulo'],
-                $data['instrucciones'],
-                $data['tiempo_preparacion'],
-            );
 
-            if ($resultado) {
-                echo json_encode(['success' => true, 'message' => 'Receta actualizada correctamente']);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Error al actualizar la receta']);
-            }
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
-        }
-    }
+                $id = $data['id_receta'] ?? null; 
+                $titulo = $data['titulo'] ?? null;
+                $instrucciones = $data['instrucciones'] ?? null;
+                $tiempo = $data['tiempo'] ?? null;
 
-    public function agregarImagen() {
-    echo "Entrando a agregarImagen";  // Mensaje de depuración
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        echo 'Entramos al controlador y la solicitud es POST';
-
-        // Verificar si el archivo de la imagen ha sido enviado
-        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
-            echo 'Imagen recibida correctamente';
-
-            // Definir la ruta donde se guardará la imagen (asegúrate de que la carpeta tenga permisos de escritura)
-            $nombreImagen = $_FILES['imagen']['name']; // Nombre original del archivo
-            $rutaImagen = '../img_u/' . $nombreImagen;
-
-            echo "Moviendo archivo a: " . $rutaImagen;
-
-            if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaImagen)) {
-                echo 'Imagen movida con éxito';
-
-                // Recuperar el id_receta enviado por el cliente
-                $id_receta = $_POST['idreceta'];  // Aquí obtenemos el id_receta desde el POST
-                echo 'idreceta recibido: ' . $id_receta;
-
-                // Llamar al método que agrega la imagen a la base de datos
-                $resultado = $this->recetaModel->agregarImagen($id_receta, $rutaImagen);
+                $resultado = $this->recetaModel->actualizarReceta($id, $titulo, $instrucciones, $tiempo);
 
                 if ($resultado) {
-                    echo json_encode(array('success' => true, 'message' => 'Imagen subida y guardada correctamente.', 'idreceta' => $id_receta, 'rutaImagen' => $rutaImagen));
+                    echo json_encode(array('success' => true, 'id_receta' => $id, 'message' => 'Receta actualizada correctamente.'));
                 } else {
-                    echo json_encode(array('success' => false, 'message' => 'Error al guardar la imagen en la base de datos.'));
+                    echo json_encode(array('success' => false, 'message' => 'Error al actualizar la receta.'));
+                }
+
+
+                //echo json_encode(array('success' => true, 'message' => 'Datos insertados correctamente, el id_usuario es: '. $id_usuario));
+            
+        }else {
+                echo json_encode(array('success' => false, 'message' => 'Error al actualizar datos de la receta'));
+        }
+    }
+
+    public function agregarImagen()
+    {
+        echo "Entrando a agregarImagen";  // Mensaje de depuración
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            echo 'Entramos al controlador y la solicitud es POST';
+
+            // Verificar si el archivo de la imagen ha sido enviado
+            if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+                echo 'Imagen recibida correctamente';
+
+                // Definir la ruta donde se guardará la imagen (asegúrate de que la carpeta tenga permisos de escritura)
+                $nombreImagen = $_FILES['imagen']['name']; // Nombre original del archivo
+                $rutaImagen = '../img_u/' . $nombreImagen;
+
+                echo "Moviendo archivo a: " . $rutaImagen;
+
+                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaImagen)) {
+                    echo 'Imagen movida con éxito';
+
+                    // Recuperar el id_receta enviado por el cliente
+                    $id_receta = $_POST['idreceta'];  // Aquí obtenemos el id_receta desde el POST
+                    echo 'idreceta recibido: ' . $id_receta;
+
+                    // Llamar al método que agrega la imagen a la base de datos
+                    $resultado = $this->recetaModel->agregarImagen($id_receta, $rutaImagen);
+
+                    if ($resultado) {
+                        echo json_encode(array('success' => true, 'message' => 'Imagen subida y guardada correctamente.', 'idreceta' => $id_receta, 'rutaImagen' => $rutaImagen));
+                    } else {
+                        echo json_encode(array('success' => false, 'message' => 'Error al guardar la imagen en la base de datos.'));
+                    }
+                } else {
+                    echo json_encode(array('success' => false, 'message' => 'Error al mover la imagen al directorio.'));
                 }
             } else {
-                echo json_encode(array('success' => false, 'message' => 'Error al mover la imagen al directorio.'));
+                // Si no se ha seleccionado ninguna imagen o hubo un error en la carga
+                echo json_encode(array('success' => false, 'message' => 'No se ha seleccionado ninguna imagen o hubo un error en la carga.'));
             }
-        } else {
-            // Si no se ha seleccionado ninguna imagen o hubo un error en la carga
-            echo json_encode(array('success' => false, 'message' => 'No se ha seleccionado ninguna imagen o hubo un error en la carga.'));
         }
     }
-}
 
-public function eliminarReceta(){
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $jsonData = file_get_contents("php://input");
-        $data = json_decode($jsonData, true);
+    public function eliminarReceta()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jsonData = file_get_contents("php://input");
+            $data = json_decode($jsonData, true);
 
-        $idReceta = $data['id_receta'] ?? null;
+            $idReceta = $data['id_receta'] ?? null;
 
-        if ($idReceta) {
-            $resultado = $this->recetaModel->eliminarReceta($idReceta);
-            if ($resultado) {
-                echo json_encode(['success' => true, 'message' => 'Se eliminó la receta correctamente.']);
+            if ($idReceta) {
+                $resultado = $this->recetaModel->eliminarReceta($idReceta);
+                if ($resultado) {
+                    echo json_encode(['success' => true, 'message' => 'Se eliminó la receta correctamente.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Error al eliminar la receta.']);
+                }
             } else {
-                echo json_encode(['success' => false, 'message' => 'Error al eliminar la receta.']);
+                echo json_encode(['success' => false, 'message' => 'ID de receta no proporcionado.']);
             }
         } else {
-            echo json_encode(['success' => false, 'message' => 'ID de receta no proporcionado.']);
+            echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
         }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
+        exit();
     }
-    exit();
-}
 
-public function toggleFavorito() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $jsonData = file_get_contents("php://input");
-        $data = json_decode($jsonData, true);
+    public function toggleFavorito()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jsonData = file_get_contents("php://input");
+            $data = json_decode($jsonData, true);
 
-        $id_receta = $data['id_receta'] ?? null;
-        $id_usuario = $this->usuarioModel->obtenerIdUsuario();
-        if ($id_receta && $id_usuario) {
-            $success = $this->recetaModel->toggleFavorito($id_usuario, $id_receta);
-            echo json_encode(['success' => $success]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Datos incompletos.']);
-        }
-    }
-    exit;
-}
-
-public function obtenerFavoritos() {
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $id_usuario = $this->usuarioModel->obtenerIdUsuario();
-        $favoritos = $this->recetaModel->obtenerFavoritos($id_usuario);
-        echo json_encode(['favoritos' => $favoritos]);
-    }
-    exit;
-}
-public function obtenerRecetasPublicas() {
-    try {
-        $recetas = $this->recetaModel->obtenerRecetasPublicas();
-
-        // Ajustar las rutas dinámicamente
-        foreach ($recetas as &$receta) {
-            if (strpos($receta['imagen_url'], '../') === 0) {
-                $receta['imagen_url'] = str_replace('../', '/recetario/', $receta['imagen_url']);
+            $id_receta = $data['id_receta'] ?? null;
+            $id_usuario = $this->usuarioModel->obtenerIdUsuario();
+            if ($id_receta && $id_usuario) {
+                $success = $this->recetaModel->toggleFavorito($id_usuario, $id_receta);
+                echo json_encode(['success' => $success]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Datos incompletos.']);
             }
         }
-
-        echo json_encode($recetas);
-    } catch (Exception $e) {
-        error_log("Error en obtenerRecetasPublicas: " . $e->getMessage());
-        echo json_encode(["error" => "Error al obtener recetas públicas"]);
+        exit;
     }
-    exit();
-}
+
+    public function obtenerFavoritos()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $id_usuario = $this->usuarioModel->obtenerIdUsuario();
+            $favoritos = $this->recetaModel->obtenerFavoritos($id_usuario);
+            echo json_encode(['favoritos' => $favoritos]);
+        }
+        exit;
+    }
+    public function obtenerRecetasPublicas()
+    {
+        try {
+            $recetas = $this->recetaModel->obtenerRecetasPublicas();
+
+            // Ajustar las rutas dinámicamente
+            foreach ($recetas as &$receta) {
+                if (strpos($receta['imagen_url'], '../') === 0) {
+                    $receta['imagen_url'] = str_replace('../', '/recetario/', $receta['imagen_url']);
+                }
+            }
+
+            echo json_encode($recetas);
+        } catch (Exception $e) {
+            error_log("Error en obtenerRecetasPublicas: " . $e->getMessage());
+            echo json_encode(["error" => "Error al obtener recetas públicas"]);
+        }
+        exit();
+    }
 }
 
 $controller = new RecetaController();
@@ -269,14 +279,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             case 'obtenerReceta':
                 $controller->obtenerReceta();
                 break;
-            case 'eliminarReceta' :
+            case 'eliminarReceta':
                 $controller->eliminarReceta();
                 break;
-            case 'toggleFavorito' :
+            case 'toggleFavorito':
                 $controller->toggleFavorito();
                 break;
-            case 'editarReceta':
+            case 'actualizarReceta':
                 $controller->editarReceta();
+                break; 
             default:
                 echo json_encode(['error' => 'Acción no reconocida']);
                 break;

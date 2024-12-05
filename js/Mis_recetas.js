@@ -11,7 +11,6 @@ $(document).ready(function() { // esta línea asegura que el código dentro de l
         mostrarRecetas(data);
         configurarBotonEditar(); 
         
-
     });
 
     
